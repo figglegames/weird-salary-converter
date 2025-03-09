@@ -27,12 +27,12 @@
   <h1>Weird Salary Converter</h1>
   <p>Enter your annual salary (in dollars):</p>
   <input type="number" id="salaryInput" placeholder="e.g. 50000" />
-  <button onclick="convertSalary()">Convert</button>
+  <button id="convertBtn">Convert</button>
   
   <div id="result"></div>
 
   <script>
-    function convertSalary() {
+    document.getElementById("convertBtn").addEventListener("click", function() {
       const salary = parseFloat(document.getElementById("salaryInput").value);
       if (isNaN(salary)) {
         document.getElementById("result").innerText = "Please enter a valid number.";
@@ -40,8 +40,8 @@
       }
       
       // Conversion rates
-      const canoes = Math.round(salary / 1000); // 1 canoe per $1,000
-      const concertTickets = Math.round(salary / 100); // 1 concert ticket per $100
+      const canoes = Math.floor(salary / 1000); // 1 canoe per $1,000
+      const concertTickets = Math.floor(salary / 100); // 1 concert ticket per $100
       const ferraris = (salary / 300000).toFixed(3); // 1 Ferrari per $300,000
       
       // Display results
@@ -51,7 +51,7 @@
       resultText += `- Or, you could buy about ${ferraris} Ferraris!`;
       
       document.getElementById("result").innerText = resultText;
-    }
+    });
   </script>
 </body>
 </html>
