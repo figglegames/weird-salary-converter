@@ -11,29 +11,36 @@
       text-align: center;
       margin: 50px;
     }
-    input, button {
+    input, button, select {
       font-size: 1em;
       padding: 10px;
       margin: 10px;
     }
-  #result {
-  font-size: 1.4em;
-  margin-top: 40px;
-  text-align: left;
-  display: block;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 2.2;
-  font-weight: bold;
-  padding: 10px;
-  padding-left: 20px;
-}
-</style>
+    #result {
+      font-size: 1.4em;
+      margin-top: 40px;
+      text-align: left;
+      display: block;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 2.2;
+      font-weight: bold;
+      padding: 10px;
+      padding-left: 20px;
+    }
+  </style>
 </head>
 <body>
   <h1>Weird Salary Converter</h1>
   <p>Enter your annual salary (in dollars):</p>
   <input type="number" id="salaryInput" placeholder="e.g. 50000" />
+
+  <select id="conversionType">
+    <option value="canoes">Canoes</option>
+    <option value="tickets">Concert Tickets</option>
+    <option value="ferraris">Ferraris</option>
+  </select>
+
   <button id="convertBtn">Convert</button>
   
   <div id="result"></div>
@@ -45,18 +52,18 @@
         document.getElementById("result").innerText = "Please enter a valid number.";
         return;
       }
-      
-      // Conversion rates
-      const canoes = Math.floor(salary / 1000); // 1 canoe per $1,000
-      const concertTickets = Math.floor(salary / 100); // 1 concert ticket per $100
-      const ferraris = (salary / 300000).toFixed(3); // 1 Ferrari per $300,000
-      
-      // Display results
+
+      const conversionType = document.getElementById("conversionType").value;
       let resultText = `For your salary of $${salary.toLocaleString()}:\n`;
-      resultText += `- You could buy about ${canoes} canoes.\n`;
-      resultText += `- That’s roughly ${concertTickets} concert tickets!\n`;
-      resultText += `- Or, you could buy about ${ferraris} Ferraris!`;
-      
+
+      if (conversionType === "canoes") {
+        resultText += `- You could buy about ${Math.floor(salary / 1000)} canoes.\n`;
+      } else if (conversionType === "tickets") {
+        resultText += `- That’s roughly ${Math.floor(salary / 100)} concert tickets!\n`;
+      } else if (conversionType === "ferraris") {
+        resultText += `- Or, you could buy about ${(salary / 300000).toFixed(3)} Ferraris!`;
+      }
+
       document.getElementById("result").innerText = resultText;
     });
   </script>
