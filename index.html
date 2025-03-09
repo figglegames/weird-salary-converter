@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weird Salary Converter</title>
+  <meta name="description" content="Convert your salary into quirky equivalents like canoes, concert tickets, and Ferraris!">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    input, button {
+      font-size: 1em;
+      padding: 10px;
+      margin: 10px;
+    }
+    #result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weird Salary Converter</h1>
+  <p>Enter your annual salary (in dollars):</p>
+  <input type="number" id="salaryInput" placeholder="e.g. 50000" />
+  <button onclick="convertSalary()">Convert</button>
+  
+  <div id="result"></div>
+
+  <script>
+    function convertSalary() {
+      const salary = parseFloat(document.getElementById("salaryInput").value);
+      if (isNaN(salary)) {
+        document.getElementById("result").innerText = "Please enter a valid number.";
+        return;
+      }
+      
+      // Example conversions:
+      const canoes = Math.round(salary / 1000); // 1 canoe per $1,
 
