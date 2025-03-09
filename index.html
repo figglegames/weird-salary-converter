@@ -39,6 +39,19 @@
         return;
       }
       
-      // Example conversions:
-      const canoes = Math.round(salary / 1000); // 1 canoe per $1,
-
+      // Conversion rates
+      const canoes = Math.round(salary / 1000); // 1 canoe per $1,000
+      const concertTickets = Math.round(salary / 100); // 1 concert ticket per $100
+      const ferraris = (salary / 300000).toFixed(3); // 1 Ferrari per $300,000
+      
+      // Display results
+      let resultText = `For your salary of $${salary.toLocaleString()}:\n`;
+      resultText += `- You could buy about ${canoes} canoes.\n`;
+      resultText += `- That’s roughly ${concertTickets} concert tickets!\n`;
+      resultText += `- Or, you could buy about ${ferraris} Ferraris!`;
+      
+      document.getElementById("result").innerText = resultText;
+    }
+  </script>
+</body>
+</html>
