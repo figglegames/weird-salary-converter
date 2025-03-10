@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weird Salary Converter</title>
-  <meta name="description" content="Convert your salary into quirky equivalents like canoes, concert tickets, and Ferraris!">
+  <meta name="description" content="Convert your salary into quirky equivalents!">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,13 +36,59 @@
   <input type="number" id="salaryInput" placeholder="e.g. 50000" />
 
   <select id="conversionType">
-    <option value="canoes">Canoes</option>
-    <option value="tickets">Concert Tickets</option>
-    <option value="ferraris">Ferraris</option>
+    <option value="goldfish">Goldfish</option>
+    <option value="flamingos">Plastic Lawn Flamingos</option>
+    <option value="cookies">Girl Scout Cookies</option>
+    <option value="swim">Minutes of Swim Time in Iceland</option>
+    <option value="everest">Minutes at the Top of Mount Everest</option>
+    <option value="uranium">Ounces of Uranium</option>
+    <option value="superbowl">Minutes of Super Bowl Commercial Airtime</option>
+    <option value="ferrari">Ferrari 296 GTB</option>
+    <option value="harley">Harley Davidson Motorcycle</option>
+    <option value="teepee">Teepee</option>
+    <option value="yurt">Yurt</option>
+    <option value="smoke">Jar of Frozen Smoke</option>
+    <option value="stradivarius">Stradivarius Violin</option>
+    <option value="rolex">Rolex Submariner Watch</option>
+    <option value="xbox">Xbox Series X</option>
+    <option value="taylor">Taylor Swift VIP Concert Ticket</option>
+    <option value="painting">Custom Portrait Painting</option>
+    <option value="paris">Business Class Flight to Paris</option>
+    <option value="island">Private Island Rental (1 week)</option>
+    <option value="formula1">Formula 1 Grand Prix VIP Ticket</option>
+    <option value="coachella">VIP Coachella Pass</option>
+    <option value="avocados">Avocados</option>
+    <option value="coffee">Bags of Coffee Beans</option>
+    <option value="ramen">One-Year Supply of Instant Noodles</option>
+    <option value="tiger">Pet Tiger</option>
+    <option value="spacex">A SpaceX Ticket to Orbit</option>
+    <option value="billboard">Billboard in Times Square (1 day)</option>
+    <option value="pencils">Pencils</option>
+    <option value="toiletpaper">Roll of Toilet Paper</option>
+    <option value="machu">Trip to Machu Picchu</option>
+    <option value="curling">Curling Lessons</option>
+    <option value="wimbledon">Tickets to Wimbledon Finals</option>
+    <option value="saffron">Ounce of Saffron</option>
+    <option value="paperclips">Paperclips</option>
+    <option value="toothpicks">Toothpicks</option>
+    <option value="jellybeans">Jelly Beans</option>
+    <option value="postit">Post-it Notes</option>
+    <option value="rice">Individual Grains of Rice</option>
+    <option value="pingpong">Ping Pong Balls</option>
+    <option value="vampire">Plastic Vampire Teeth</option>
+    <option value="lego">Single LEGO Bricks</option>
+    <option value="marbles">Marbles</option>
+    <option value="icecream">Gallons of Premium Ice Cream</option>
+    <option value="cassette">'80s Cassette Tape</option>
+    <option value="wax">One-Year Supply of Turtle Wax</option>
+    <option value="bulb">1915 Thomas Edison Light Bulb</option>
+    <option value="silver">Mason Jar of US Silver Coins</option>
+    <option value="ouija">Ouija Board</option>
+    <option value="chocolate">Pounds of Belgian Chocolate</option>
+    <option value="beans">Cans of Van Camp’s Pork and Beans</option>
   </select>
 
   <button id="convertBtn">Convert</button>
-  
   <div id="result"></div>
 
   <script>
@@ -54,17 +100,32 @@
       }
 
       const conversionType = document.getElementById("conversionType").value;
-      let resultText = `For your salary of $${salary.toLocaleString()}:\n`;
-
-      if (conversionType === "canoes") {
-        resultText += `- You could buy about ${Math.floor(salary / 1000)} canoes.\n`;
-      } else if (conversionType === "tickets") {
-        resultText += `- That’s roughly ${Math.floor(salary / 100)} concert tickets!\n`;
-      } else if (conversionType === "ferraris") {
-        resultText += `- Or, you could buy about ${(salary / 300000).toFixed(3)} Ferraris!`;
-      }
-
-      document.getElementById("result").innerText = resultText;
+      const prices = {
+        goldfish: 0.50,
+        flamingos: 10,
+        cookies: 0.17,
+        swim: 0.17,
+        everest: 4000,
+        uranium: 3.13,
+        superbowl: 16000000,
+        ferrari: 300000,
+        harley: 25000,
+        teepee: 2000,
+        yurt: 5000,
+        smoke: 50,
+        stradivarius: 11000000,
+        rolex: 10000,
+        xbox: 500,
+        taylor: 5000,
+        painting: 5000,
+        paris: 5000,
+        island: 100000,
+        formula1: 7000,
+        coachella: 1500
+      };
+      
+      const result = salary / (prices[conversionType] || 1);
+      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${conversionType.replace(/_/g, ' ')}.`;
     });
   </script>
 </body>
