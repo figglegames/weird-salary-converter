@@ -43,24 +43,24 @@
     <option value="everest">Minutes at the Top of Mount Everest</option>
     <option value="uranium">Ounces of Uranium</option>
     <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime</option>
-    <option value="ferrari">Ferrari 296 GTB</option>
-    <option value="harley">Harley Davidson Motorcycle</option>
-    <option value="teepee">Teepee</option>
-    <option value="smoke">Jar of Frozen Smoke</option>
-    <option value="stradivarius">Stradivarius Violin</option>
-    <option value="rolex">Rolex Submariner Watch</option>
-    <option value="xbox">Xbox Series X</option>
-    <option value="taylor">Taylor Swift VIP Concert Ticket</option>
-    <option value="paris">First Class Flight to Paris</option>
+    <option value="ferrari">Ferrari 296 GTBs</option>
+    <option value="harley">Harley Davidson Motorcycles</option>
+    <option value="teepees">Teepees</option>
+    <option value="smoke">Jars of Frozen Smoke</option>
+    <option value="stradivarius">Stradivarius Violins</option>
+    <option value="rolex">Rolex Submariner Watches</option>
+    <option value="xbox">Xbox Series X Consoles</option>
+    <option value="taylor">Taylor Swift VIP Concert Tickets</option>
+    <option value="paris">First Class Flights to Paris</option>
     <option value="avocados">Avocados</option>
     <option value="coffee">Bags of Coffee Beans</option>
-    <option value="ramen">One-Year Supply of Instant Noodles</option>
-    <option value="tiger">Pet Tiger</option>
-    <option value="spacex">A SpaceX Ticket to Orbit</option>
-    <option value="billboard">Billboard in Times Square (1 day)</option>
+    <option value="ramen">One-Year Supplies of Instant Noodles</option>
+    <option value="tiger">Pet Tigers</option>
+    <option value="spacex">SpaceX Tickets to Orbit</option>
+    <option value="billboard">Billboards in Times Square (1 day)</option>
     <option value="pencils">Pencils</option>
-    <option value="toiletpaper">Roll of Toilet Paper</option>
-    <option value="machu">Trip to Machu Picchu</option>
+    <option value="toiletpaper">Rolls of Toilet Paper</option>
+    <option value="machu">Trips to Machu Picchu</option>
     <option value="curling">Curling Lessons</option>
     <option value="wimbledon">Tickets to Wimbledon Finals</option>
     <option value="saffron">Ounces of Saffron</option>
@@ -74,11 +74,11 @@
     <option value="lego">Single LEGO Bricks</option>
     <option value="marbles">Marbles</option>
     <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tape</option>
-    <option value="wax">One-Year Supply of Turtle Wax</option>
-    <option value="bulb">1915 Thomas Edison Light Bulb</option>
-    <option value="silver">Mason Jar of US Silver Coins</option>
-    <option value="ouija">Ouija Board</option>
+    <option value="cassette">'80s Cassette Tapes</option>
+    <option value="wax">One-Year Supplies of Turtle Wax</option>
+    <option value="bulb">1915 Thomas Edison Light Bulbs</option>
+    <option value="silver">Mason Jars of US Silver Coins</option>
+    <option value="ouija">Ouija Boards</option>
     <option value="chocolate">Pounds of Belgian Chocolate</option>
     <option value="beans">Cans of Van Camp’s Pork and Beans</option>
   </select>
@@ -105,7 +105,7 @@
         superbowl: 16000000 / 1000,
         ferrari: 300000,
         harley: 25000,
-        teepee: 2000,
+        teepees: 2000,
         smoke: 50,
         stradivarius: 11000000,
         rolex: 10000,
@@ -118,8 +118,8 @@
       };
       
       const result = salary / (prices[conversionType] || 1);
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.toLowerCase();
-      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${unit}.`;
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${unit}`;
     });
   </script>
 </body>
