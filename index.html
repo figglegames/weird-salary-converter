@@ -42,21 +42,16 @@
     <option value="swim">Minutes of Swim Time in Iceland</option>
     <option value="everest">Minutes at the Top of Mount Everest</option>
     <option value="uranium">Ounces of Uranium</option>
-    <option value="superbowl">Minutes of Super Bowl Commercial Airtime</option>
+    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime</option>
     <option value="ferrari">Ferrari 296 GTB</option>
     <option value="harley">Harley Davidson Motorcycle</option>
     <option value="teepee">Teepee</option>
-    <option value="yurt">Yurt</option>
     <option value="smoke">Jar of Frozen Smoke</option>
     <option value="stradivarius">Stradivarius Violin</option>
     <option value="rolex">Rolex Submariner Watch</option>
     <option value="xbox">Xbox Series X</option>
     <option value="taylor">Taylor Swift VIP Concert Ticket</option>
-    <option value="painting">Custom Portrait Painting</option>
-    <option value="paris">Business Class Flight to Paris</option>
-    <option value="island">Private Island Rental (1 week)</option>
-    <option value="formula1">Formula 1 Grand Prix VIP Ticket</option>
-    <option value="coachella">VIP Coachella Pass</option>
+    <option value="paris">First Class Flight to Paris</option>
     <option value="avocados">Avocados</option>
     <option value="coffee">Bags of Coffee Beans</option>
     <option value="ramen">One-Year Supply of Instant Noodles</option>
@@ -68,7 +63,7 @@
     <option value="machu">Trip to Machu Picchu</option>
     <option value="curling">Curling Lessons</option>
     <option value="wimbledon">Tickets to Wimbledon Finals</option>
-    <option value="saffron">Ounce of Saffron</option>
+    <option value="saffron">Ounces of Saffron</option>
     <option value="paperclips">Paperclips</option>
     <option value="toothpicks">Toothpicks</option>
     <option value="jellybeans">Jelly Beans</option>
@@ -107,25 +102,24 @@
         swim: 0.17,
         everest: 4000,
         uranium: 3.13,
-        superbowl: 16000000,
+        superbowl: 16000000 / 1000,
         ferrari: 300000,
         harley: 25000,
         teepee: 2000,
-        yurt: 5000,
         smoke: 50,
         stradivarius: 11000000,
         rolex: 10000,
         xbox: 500,
         taylor: 5000,
-        painting: 5000,
-        paris: 5000,
-        island: 100000,
-        formula1: 7000,
-        coachella: 1500
+        paris: 7000,
+        tiger: 50000,
+        spacex: 450000,
+        billboard: 50000,
       };
       
       const result = salary / (prices[conversionType] || 1);
-      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${conversionType.replace(/_/g, ' ')}.`;
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.toLowerCase();
+      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${unit}.`;
     });
   </script>
 </body>
