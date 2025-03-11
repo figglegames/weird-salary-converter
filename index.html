@@ -43,44 +43,44 @@
     <option value="everest">Minutes at the Top of Mount Everest</option>
     <option value="uranium">Ounces of Uranium</option>
     <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime</option>
-    <option value="ferrari">Ferrari 296 GTBs</option>
-    <option value="harley">Harley Davidson Motorcycles</option>
-    <option value="teepees">Teepees</option>
-    <option value="smoke">Jars of Frozen Smoke</option>
-    <option value="stradivarius">Stradivarius Violins</option>
-    <option value="rolex">Rolex Submariner Watches</option>
-    <option value="xbox">Xbox Series X Consoles</option>
-    <option value="taylor">Taylor Swift VIP Concert Tickets</option>
-    <option value="paris">First Class Flights to Paris</option>
+    <option value="ferrari">Ferrari 296 GTB</option>
+    <option value="harley">Harley Davidson Motorcycle</option>
+    <option value="teepees">Teepee</option>
+    <option value="smoke">Jar of Frozen Smoke</option>
+    <option value="stradivarius">Stradivarius Violin</option>
+    <option value="rolex">Rolex Submariner Watch</option>
+    <option value="xbox">Xbox Series X Console</option>
+    <option value="taylor">Taylor Swift VIP Concert Ticket</option>
+    <option value="paris">First Class Flight to Paris</option>
     <option value="avocados">Avocados</option>
     <option value="coffee">Bags of Coffee Beans</option>
-    <option value="ramen">One-Year Supplies of Instant Noodles</option>
-    <option value="tiger">Pet Tigers</option>
-    <option value="spacex">SpaceX Tickets to Orbit</option>
-    <option value="billboard">Billboards in Times Square (1 day)</option>
+    <option value="ramen">One-Year Supply of Instant Noodles</option>
+    <option value="tiger">Pet Tiger</option>
+    <option value="spacex">SpaceX Ticket to Orbit</option>
+    <option value="billboard">Billboard in Times Square (1 day)</option>
     <option value="pencils">Pencils</option>
     <option value="toiletpaper">Rolls of Toilet Paper</option>
-    <option value="machu">Trips to Machu Picchu</option>
-    <option value="curling">Curling Lessons</option>
-    <option value="wimbledon">Tickets to Wimbledon Finals</option>
-    <option value="saffron">Ounces of Saffron</option>
+    <option value="machu">Trip to Machu Picchu</option>
+    <option value="curling">Curling Lesson</option>
+    <option value="wimbledon">Ticket to Wimbledon Finals</option>
+    <option value="saffron">Ounce of Saffron</option>
     <option value="paperclips">Paperclips</option>
     <option value="toothpicks">Toothpicks</option>
     <option value="jellybeans">Jelly Beans</option>
     <option value="postit">Post-it Notes</option>
     <option value="rice">Individual Grains of Rice</option>
-    <option value="pingpong">Ping Pong Balls</option>
+    <option value="pingpong">Ping Pong Ball</option>
     <option value="vampire">Plastic Vampire Teeth</option>
-    <option value="lego">Single LEGO Bricks</option>
-    <option value="marbles">Marbles</option>
-    <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tapes</option>
-    <option value="wax">One-Year Supplies of Turtle Wax</option>
-    <option value="bulb">1915 Thomas Edison Light Bulbs</option>
-    <option value="silver">Mason Jars of US Silver Coins</option>
-    <option value="ouija">Ouija Boards</option>
-    <option value="chocolate">Pounds of Belgian Chocolate</option>
-    <option value="beans">Cans of Van Camp’s Pork and Beans</option>
+    <option value="lego">Single LEGO Brick</option>
+    <option value="marbles">Marble</option>
+    <option value="icecream">Gallon of Premium Ice Cream</option>
+    <option value="cassette">'80s Cassette Tape</option>
+    <option value="wax">One-Year Supply of Turtle Wax</option>
+    <option value="bulb">1915 Thomas Edison Light Bulb</option>
+    <option value="silver">Mason Jar of US Silver Coins</option>
+    <option value="ouija">Ouija Board</option>
+    <option value="chocolate">Pound of Belgian Chocolate</option>
+    <option value="beans">Can of Van Camp’s Pork and Beans</option>
   </select>
 
   <button id="convertBtn">Convert</button>
@@ -135,7 +135,19 @@
         toothpicks: 0.005,
         jellybeans: 0.02,
         postit: 0.10,
-        rice: 0.0002
+        rice: 0.0002,
+        pingpong: 0.25,
+        vampire: 0.75,
+        lego: 0.15,
+        marbles: 0.20,
+        icecream: 5,
+        cassette: 3.30,
+        wax: 10,
+        bulb: 65,
+        silver: 62,
+        ouija: 75,
+        chocolate: 33,
+        beans: 1
       };
       
       const result = salary / (prices[conversionType] || 1);
