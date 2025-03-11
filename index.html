@@ -18,12 +18,12 @@
     }
     #result {
       font-size: 1.4em;
-      margin-top: 40px;
+      margin-top: 20px;
       text-align: left;
       display: block;
       max-width: 600px;
       margin: 0 auto;
-      line-height: 2.2;
+      line-height: 1.6;
       font-weight: bold;
       padding: 10px;
       padding-left: 20px;
@@ -87,7 +87,14 @@
   <div id="result"></div>
 
   <script>
-    document.getElementById("convertBtn").addEventListener("click", function() {
+    document.getElementById("convertBtn").addEventListener("click", convert);
+    document.getElementById("salaryInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        convert();
+      }
+    });
+
+    function convert() {
       const salary = parseFloat(document.getElementById("salaryInput").value);
       if (isNaN(salary)) {
         document.getElementById("result").innerText = "Please enter a valid number.";
@@ -128,25 +135,13 @@
         toothpicks: 0.005,
         jellybeans: 0.02,
         postit: 0.10,
-        rice: 0.0002,
-        pingpong: 0.25,
-        vampire: 0.75,
-        lego: 0.15,
-        marbles: 0.20,
-        icecream: 6,
-        cassette: 3.30,
-        wax: 50,
-        bulb: 65,
-        silver: 62,
-        ouija: 75,
-        chocolate: 33,
-        beans: 1
+        rice: 0.0002
       };
       
       const result = salary / (prices[conversionType] || 1);
       const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
-    });
+      document.getElementById("result").innerText = `You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
+    }
   </script>
 </body>
 </html>
