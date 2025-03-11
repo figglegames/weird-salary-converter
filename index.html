@@ -101,17 +101,12 @@
 
     convertBtn.addEventListener("click", convert);
 
+    // Single reliable Enter key listener
     salaryInput.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
         convert();
-      }
-    });
-
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Enter" && document.activeElement === salaryInput) {
-        event.preventDefault();
-        convert();
+        salaryInput.focus(); // Ensure input retains focus for next attempt
       }
     });
 
@@ -184,7 +179,7 @@
       }
 
       const result = salary / prices[conversionType];
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.replace(/ .*/, ""); // Strip emoji from unit
       const emojis = {
         goldfish: "🐟",
         flamingos: "🦩",
