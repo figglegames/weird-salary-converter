@@ -96,30 +96,40 @@
 
       const conversionType = document.getElementById("conversionType").value;
       const prices = {
-        goldfish: 0.50,
-        flamingos: 10,
-        cookies: 0.17,
-        swim: 0.17,
-        everest: 4000,
-        uranium: 3.13,
-        superbowl: 16000000 / 1000,
-        ferrari: 300000,
-        harley: 25000,
-        teepees: 2000,
-        smoke: 50,
-        stradivarius: 11000000,
-        rolex: 10000,
-        xbox: 500,
-        taylor: 5000,
-        paris: 7000,
+        avocados: 2,
+        coffee: 15,
+        ramen: 300,
         tiger: 50000,
         spacex: 450000,
         billboard: 50000,
+        pencils: 0.10,
+        toiletpaper: 1,
+        machu: 2500,
+        curling: 100,
+        wimbledon: 2000,
+        saffron: 5000,
+        paperclips: 0.01,
+        toothpicks: 0.005,
+        jellybeans: 0.02,
+        postit: 0.10,
+        rice: 0.0002,
+        pingpong: 0.25,
+        vampire: 0.75,
+        lego: 0.15,
+        marbles: 0.20,
+        icecream: 6,
+        cassette: 3.30,
+        wax: 50,
+        bulb: 65,
+        silver: 62,
+        ouija: 75,
+        chocolate: 33,
+        beans: 1
       };
       
       const result = salary / (prices[conversionType] || 1);
       const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString()} ${unit}`;
+      document.getElementById("result").innerText = `You could buy about ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
     });
   </script>
 </body>
