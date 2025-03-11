@@ -102,12 +102,21 @@
 
     convertBtn.addEventListener("click", convert);
 
-    // Enter key listener on the dropdown
+    // Enter key on dropdown
     conversionTypeSelect.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
         convert();
-        conversionTypeSelect.focus(); // Keep focus on dropdown for next selection
+        conversionTypeSelect.focus();
+      }
+    });
+
+    // Enter key on Convert button
+    convertBtn.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        convert();
+        convertBtn.focus(); // Keep focus on button
       }
     });
 
@@ -180,7 +189,7 @@
       }
 
       const result = salary / prices[conversionType];
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.replace(/ [^\s]*$/, ""); // Remove emoji (last space and after)
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.replace(/\s*[^\w\s].*$/, ""); // Remove emoji if present
       const emojis = {
         goldfish: "🐟",
         flamingos: "🦩",
@@ -219,7 +228,9 @@
       };
       const emoji = emojis[conversionType] || "";
 
-      showResult(`You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit} ${emoji}`);
+      // Adjust decimal places for small results
+      const fractionDigits = result < 1 ? 4 : 2;
+      showResult(`You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: fractionDigits})} ${unit} ${emoji}`);
     }
 
     function showResult(message) {
