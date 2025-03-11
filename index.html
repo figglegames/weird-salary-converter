@@ -99,10 +99,10 @@
         goldfish: 0.50,
         flamingos: 10,
         cookies: 0.17,
-        swim: 0.17,
+        swim: 0.1667,
         everest: 4000,
         uranium: 3.13,
-        superbowl: 16000000,
+        superbowl: 533.33,
         ferrari: 300000,
         harley: 25000,
         teepees: 2000,
@@ -142,23 +142,9 @@
         chocolate: 33,
         beans: 1
       };
-
-      if (!prices.hasOwnProperty(conversionType)) {
-        document.getElementById("result").innerText = "Error: Selected item not found.";
-        return;
-      }
-
-      const result = salary / prices[conversionType];
-
-      let unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      if (result !== 1) {
-        if (unit.endsWith('s') || unit.endsWith('h')) {
-          unit += "es";
-        } else {
-          unit += "s";
-        }
-      }
-
+      
+      const result = salary / (prices[conversionType] || 1);
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
       document.getElementById("result").innerText = `You could buy about ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
     });
   </script>
