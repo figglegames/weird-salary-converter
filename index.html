@@ -3,251 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weird Salary Converter</title>
-  <meta name="description" content="Convert your salary into quirky equivalents!">
+  <title>Weird Salary Result</title>
+  <meta name="description" content="See how many quirky items your salary can buy!">
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
+      margin: 20px;
+      background-color: #f0f4f8;
     }
-    input, button, select {
-      font-size: 1em;
-      padding: 10px;
-      margin: 10px;
+    h1 {
+      color: #1E90FF;
     }
     #result {
       font-size: 1.4em;
       margin-top: 20px;
       text-align: left;
-      display: block;
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.6;
       font-weight: bold;
       padding: 10px;
       padding-left: 20px;
+      white-space: nowrap;
+      overflow-x: auto;
       opacity: 0;
       transition: opacity 0.5s ease-in;
-      white-space: nowrap; /* Prevent text wrapping */
-      overflow-x: auto; /* Allow horizontal scrolling if too long */
     }
     #result.show {
       opacity: 1;
     }
+    button {
+      background-color: #1E90FF;
+      color: white;
+      border: 2px solid #32CD32;
+      padding: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #104E8B;
+    }
+    p {
+      max-width: 600px;
+      margin: 20px auto;
+      color: #333;
+    }
+    @media (max-width: 600px) {
+      #result, p { max-width: 100%; }
+    }
   </style>
 </head>
 <body>
-  <h1>Weird Salary Converter</h1>
-  <p>Enter your annual salary (in dollars):</p>
-  <input type="number" id="salaryInput" placeholder="e.g. 50000" />
-
-  <select id="conversionType">
-    <option value="goldfish">Goldfish 🐟</option>
-    <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
-    <option value="cookies">Girl Scout Cookies 🍪</option>
-    <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
-    <option value="everest">Minutes at the Top of Mount Everest 🏔️</option>
-    <option value="uranium">Ounces of Uranium ☢️</option>
-    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime 🏈</option>
-    <option value="ferrari">Ferrari 296 GTB 🏎️</option>
-    <option value="harley">Harley Davidson Motorcycles 🏍️</option>
-    <option value="teepees">Teepees</option>
-    <option value="smoke">Jars of Frozen Smoke</option>
-    <option value="stradivarius">Stradivarius Violins 🎻</option>
-    <option value="rolex">Rolex Submariner Watches</option>
-    <option value="xbox">Xbox Series X Consoles 🎮</option>
-    <option value="taylor">Taylor Swift VIP Concert Tickets 🎤</option>
-    <option value="paris">First Class Flights to Paris ✈️</option>
-    <option value="avocados">Avocados 🥑</option>
-    <option value="coffee">Bags of Coffee Beans ☕</option>
-    <option value="ramen">One-Year Supplies of Instant Noodles 🍜</option>
-    <option value="tiger">Pet Tigers 🐅</option>
-    <option value="spacex">SpaceX Tickets to Orbit 🚀</option>
-    <option value="billboard">Billboards in Times Square (1 day)</option>
-    <option value="pencils">Pencils ✏️</option>
-    <option value="toiletpaper">Rolls of Toilet Paper 🧻</option>
-    <option value="machu">Trips to Machu Picchu</option>
-    <option value="curling">Curling Lessons 🥌</option>
-    <option value="wimbledon">Tickets to Wimbledon Finals 🎾</option>
-    <option value="saffron">Ounces of Saffron</option>
-    <option value="paperclips">Paperclips 📎</option>
-    <option value="toothpicks">Toothpicks</option>
-    <option value="jellybeans">Jelly Beans</option>
-    <option value="postit">Post-it Notes</option>
-    <option value="rice">Individual Grains of Rice 🍚</option>
-    <option value="pingpong">Ping Pong Balls 🏓</option>
-    <option value="vampire">Plastic Vampire Teeth</option>
-    <option value="lego">Single LEGO Bricks</option>
-    <option value="marbles">Marbles</option>
-    <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tapes 📼</option>
-    <option value="wax">One-Year Supplies of Turtle Wax 🐢</option>
-    <option value="bulb">1915 Thomas Edison Light Bulbs 💡</option>
-    <option value="silver">Mason Jars of US Silver Coins</option>
-    <option value="ouija">Ouija Boards</option>
-    <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
-    <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
-    <option value="gummybears">Gummy Bears 🐻</option>
-    <option value="netflix">Hours of Netflix Streaming 📺</option>
-    <option value="moon">Square Feet of Moon Real Estate 🌕</option>
-  </select>
-
-  <button id="convertBtn">Convert</button>
+  <h1>Weird Salary Result</h1>
   <div id="result"></div>
+  <p id="funFact">Did you know? This item has a fascinating history!</p>
+  <button onclick="window.location.href='index.html'">Back to Converter</button>
 
   <script>
-    const convertBtn = document.getElementById("convertBtn");
-    const salaryInput = document.getElementById("salaryInput");
-    const conversionTypeSelect = document.getElementById("conversionType");
     const resultDiv = document.getElementById("result");
+    const funFactDiv = document.getElementById("funFact");
+    const urlParams = new URLSearchParams(window.location.search);
+    const salary = parseFloat(urlParams.get("salary"));
+    const option = urlParams.get("option");
+    const prices = {
+      goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
+      uranium: 3.13, superbowl: 533.33, ferrari: 300000, harley: 25000, teepees: 2000,
+      smoke: 50, stradivarius: 11000000, rolex: 10000, xbox: 500, taylor: 5000,
+      paris: 7000, avocados: 2, coffee: 15, ramen: 300, tiger: 50000, spacex: 450000,
+      billboard: 50000, pencils: 0.10, toiletpaper: 1, machu: 2500, curling: 100,
+      wimbledon: 2000, saffron: 5000, paperclips: 0.01, toothpicks: 0.005, jellybeans: 0.02,
+      postit: 0.10, rice: 0.0002, pingpong: 0.25, vampire: 0.75, lego: 0.15,
+      marbles: 0.20, icecream: 5, cassette: 3.30, wax: 10, bulb: 65, silver: 62,
+      ouija: 75, chocolate: 33, beans: 1, gummybears: 0.03, netflix: 0.0139, moon: 0.001
+    };
+    const emojis = {
+      goldfish: "🐟", flamingos: "🦩", cookies: "🍪", swim: "🏊‍♂️", everest: "🏔️",
+      uranium: "☢️", superbowl: "🏈", ferrari: "🏎️", harley: "🏍️", stradivarius: "🎻",
+      xbox: "🎮", taylor: "🎤", paris: "✈️", avocados: "🥑", coffee: "☕",
+      ramen: "🍜", tiger: "🐅", spacex: "🚀", pencils: "✏️", toiletpaper: "🧻",
+      curling: "🥌", wimbledon: "🎾", paperclips: "📎", rice: "🍚", pingpong: "🏓",
+      cassette: "📼", wax: "🐢", bulb: "💡", chocolate: "🍫", beans: "🥫",
+      gummybears: "🐻", netflix: "📺", moon: "🌕"
+    };
 
-    convertBtn.addEventListener("click", convert);
-
-    // Enter key on dropdown
-    conversionTypeSelect.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        convert();
-        conversionTypeSelect.focus();
-      }
-    });
-
-    // Enter key on Convert button
-    convertBtn.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        convert();
-        convertBtn.focus();
-      }
-    });
-
-    function convert() {
-      const salary = parseFloat(salaryInput.value);
-      if (isNaN(salary)) {
-        showResult("Please enter a valid number.");
-        return;
-      }
-      if (salary < 1) {
-        showResult("Salary must be at least $1.");
-        return;
-      }
-
-      const conversionType = conversionTypeSelect.value;
-      const prices = {
-        goldfish: 0.50,
-        flamingos: 10,
-        cookies: 0.17,
-        swim: 0.1667,
-        everest: 4000,
-        uranium: 3.13,
-        superbowl: 533.33,
-        ferrari: 300000,
-        harley: 25000,
-        teepees: 2000,
-        smoke: 50,
-        stradivarius: 11000000,
-        rolex: 10000,
-        xbox: 500,
-        taylor: 5000,
-        paris: 7000,
-        avocados: 2,
-        coffee: 15,
-        ramen: 300,
-        tiger: 50000,
-        spacex: 450000,
-        billboard: 50000,
-        pencils: 0.10,
-        toiletpaper: 1,
-        machu: 2500,
-        curling: 100,
-        wimbledon: 2000,
-        saffron: 5000,
-        paperclips: 0.01,
-        toothpicks: 0.005,
-        jellybeans: 0.02,
-        postit: 0.10,
-        rice: 0.0002,
-        pingpong: 0.25,
-        vampire: 0.75,
-        lego: 0.15,
-        marbles: 0.20,
-        icecream: 5,
-        cassette: 3.30,
-        wax: 10,
-        bulb: 65,
-        silver: 62,
-        ouija: 75,
-        chocolate: 33,
-        beans: 1,
-        gummybears: 0.03,
-        netflix: 0.0139,
-        moon: 0.001
-      };
-
-      if (!prices[conversionType]) {
-        showResult("Error: Conversion type not found!");
-        return;
-      }
-
-      const result = salary / prices[conversionType];
-      const unitWithEmoji = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      const unit = unitWithEmoji.replace(/\s*[\u{1F300}-\u{1F5FF}\u{1F900}-\u{1F9FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E6}-\u{1F1FF}\u{1F191}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{3030}\u{2B50}\u{2B55}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{3297}\u{3299}\u{303D}\u{00A9}\u{00AE}\u{2122}\u{23F3}\u{24C2}\u{23E9}-\u{23EF}\u{25B6}\u{23F8}-\u{23FA}].*$/u, ""); // Remove emoji
-      let finalUnit = unit.trim();
-
-      // Handle singular/plural based on result
-      if (result < 2 && result > 0) {
-        if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
-        if (unit === "Billboards in Times Square (1 day)") finalUnit = "Billboard in Times Square (1 day)";
-      }
-
-      const emojis = {
-        goldfish: "🐟",
-        flamingos: "🦩",
-        cookies: "🍪",
-        swim: "🏊‍♂️",
-        everest: "🏔️",
-        uranium: "☢️",
-        superbowl: "🏈",
-        ferrari: "🏎️",
-        harley: "🏍️",
-        stradivarius: "🎻",
-        xbox: "🎮",
-        taylor: "🎤",
-        paris: "✈️",
-        avocados: "🥑",
-        coffee: "☕",
-        ramen: "🍜",
-        tiger: "🐅",
-        spacex: "🚀",
-        pencils: "✏️",
-        toiletpaper: "🧻",
-        curling: "🥌",
-        wimbledon: "🎾",
-        paperclips: "📎",
-        rice: "🍚",
-        pingpong: "🏓",
-        cassette: "📼",
-        wax: "🐢",
-        bulb: "💡",
-        chocolate: "🍫",
-        beans: "🥫",
-        gummybears: "🐻",
-        netflix: "📺",
-        moon: "🌕"
-      };
-      const emoji = emojis[conversionType] || "";
-
-      // Adjust decimal places for small results
-      const fractionDigits = result < 1 ? 4 : 2;
-      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit} ${emoji}`);
+    const result = salary / prices[option];
+    const unit = option.split(/(?=[A-Z])/).join(" ").replace(/^\w/, c => c.toUpperCase())
+      .replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([a-zA-Z]+) (\d+)/, '$1 $2')
+      .replace(/([a-zA-Z]+) (\w+)/, '$1 of $2');
+    let finalUnit = unit;
+    if (result < 2 && result > 0) {
+      if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
+      if (unit === "Billboards in Times Square (1 day)") finalUnit = "Billboard in Times Square (1 day)";
     }
+    const emoji = emojis[option] || "";
+    const fractionDigits = result < 1 ? 4 : 2;
+    resultDiv.textContent = `You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit} ${emoji}`;
+    resultDiv.classList.add("show");
 
-    function showResult(message) {
-      resultDiv.innerText = message;
-      resultDiv.classList.remove("show");
-      setTimeout(() => resultDiv.classList.add("show"), 10);
-    }
+    // Example fun fact (to be expanded per option)
+    funFactDiv.textContent = `Did you know? ${finalUnit.split(" ")[0]} has a fascinating history!`;
   </script>
 </body>
 </html>
