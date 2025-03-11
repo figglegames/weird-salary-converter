@@ -27,6 +27,11 @@
       font-weight: bold;
       padding: 10px;
       padding-left: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+    }
+    #result.show {
+      opacity: 1;
     }
   </style>
 </head>
@@ -81,23 +86,35 @@
     <option value="ouija">Ouija Board</option>
     <option value="chocolate">Pound of Belgian Chocolate</option>
     <option value="beans">Can of Van Camp’s Pork and Beans</option>
+    <option value="gummybears">Gummy Bears</option>
+    <option value="netflix">Hours of Netflix Streaming</option>
+    <option value="moon">Square Feet of Moon Real Estate</option>
   </select>
 
   <button id="convertBtn">Convert</button>
   <div id="result"></div>
 
   <script>
-    document.getElementById("convertBtn").addEventListener("click", convert);
-    document.getElementById("salaryInput").addEventListener("keypress", function(event) {
+    const convertBtn = document.getElementById("convertBtn");
+    const salaryInput = document.getElementById("salaryInput");
+    const resultDiv = document.getElementById("result");
+
+    convertBtn.addEventListener("click", convert);
+    salaryInput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form-like submission
         convert();
       }
     });
 
     function convert() {
-      const salary = parseFloat(document.getElementById("salaryInput").value);
+      const salary = parseFloat(salaryInput.value);
       if (isNaN(salary)) {
-        document.getElementById("result").innerText = "Please enter a valid number.";
+        showResult("Please enter a valid number.");
+        return;
+      }
+      if (salary < 1) {
+        showResult("Salary must be at least $1.");
         return;
       }
 
@@ -147,12 +164,61 @@
         silver: 62,
         ouija: 75,
         chocolate: 33,
-        beans: 1
+        beans: 1,
+        gummybears: 0.03,
+        netflix: 0.0139, // ~$15/month ÷ 1080 hours/month
+        moon: 0.001 // Hypothetical $1/acre, 1 acre = 1000 sq ft
       };
-      
-      const result = salary / (prices[conversionType] || 1);
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      document.getElementById("result").innerText = `You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
+
+      if (!prices[conversionType]) {
+        showResult("Error: Conversion type not found!");
+        return;
+      }
+
+      let result = salary / prices[conversionType];
+      let unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+      let emoji = "";
+
+      // Dynamic formatting for small units (except rice)
+      if (salary >= 1000 && prices[conversionType] < 0.1 && conversionType !== "rice") {
+        if (conversionType === "toothpicks") {
+          result = result / 1000; // 1000 toothpicks per box
+          unit = "Boxes of Toothpicks";
+        } else if (conversionType === "paperclips") {
+          result = result / 500; // 500 paperclips per box
+          unit = "Boxes of Paperclips";
+        } else if (conversionType === "jellybeans") {
+          result = result / 400; // 400 jelly beans per pound
+          unit = "Pounds of Jelly Beans";
+        } else if (conversionType === "gummybears") {
+          result = result / 500; // 500 gummy bears per pound
+          unit = "Pounds of Gummy Bears";
+        }
+      }
+
+      // Add emojis for some items
+      const emojis = {
+        goldfish: "🐟",
+        flamingos: "🦩",
+        cookies: "🍪",
+        tiger: "🐅",
+        avocados: "🥑",
+        coffee: "☕",
+        icecream: "🍦",
+        chocolate: "🍫",
+        gummybears: "🐻",
+        netflix: "📺",
+        moon: "🌕"
+      };
+      emoji = emojis[conversionType] || "";
+
+      showResult(`You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit} ${emoji}`);
+    }
+
+    function showResult(message) {
+      resultDiv.innerText = message;
+      resultDiv.classList.remove("show");
+      setTimeout(() => resultDiv.classList.add("show"), 10); // Trigger fade-in
     }
   </script>
 </body>
