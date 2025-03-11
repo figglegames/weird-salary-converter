@@ -142,9 +142,23 @@
         chocolate: 33,
         beans: 1
       };
-      
-      const result = salary / (prices[conversionType] || 1);
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+
+      if (!prices.hasOwnProperty(conversionType)) {
+        document.getElementById("result").innerText = "Error: Selected item not found.";
+        return;
+      }
+
+      const result = salary / prices[conversionType];
+
+      let unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+      if (result !== 1) {
+        if (unit.endsWith('s') || unit.endsWith('h')) {
+          unit += "es";
+        } else {
+          unit += "s";
+        }
+      }
+
       document.getElementById("result").innerText = `You could buy about ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit}.`;
     });
   </script>
