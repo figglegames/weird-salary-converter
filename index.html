@@ -41,54 +41,54 @@
   <input type="number" id="salaryInput" placeholder="e.g. 50000" />
 
   <select id="conversionType">
-    <option value="goldfish">Goldfish</option>
-    <option value="flamingos">Plastic Lawn Flamingos</option>
-    <option value="cookies">Girl Scout Cookies</option>
-    <option value="swim">Minutes of Swim Time in Iceland</option>
-    <option value="everest">Minutes at the Top of Mount Everest</option>
-    <option value="uranium">Ounces of Uranium</option>
-    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime</option>
-    <option value="ferrari">Ferrari 296 GTB</option>
-    <option value="harley">Harley Davidson Motorcycles</option>
+    <option value="goldfish">Goldfish 🐟</option>
+    <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
+    <option value="cookies">Girl Scout Cookies 🍪</option>
+    <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
+    <option value="everest">Minutes at the Top of Mount Everest 🏔️</option>
+    <option value="uranium">Ounces of Uranium ☢️</option>
+    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime 🏈</option>
+    <option value="ferrari">Ferrari 296 GTB 🏎️</option>
+    <option value="harley">Harley Davidson Motorcycles 🏍️</option>
     <option value="teepees">Teepees</option>
     <option value="smoke">Jars of Frozen Smoke</option>
-    <option value="stradivarius">Stradivarius Violins</option>
+    <option value="stradivarius">Stradivarius Violins 🎻</option>
     <option value="rolex">Rolex Submariner Watches</option>
-    <option value="xbox">Xbox Series X Consoles</option>
-    <option value="taylor">Taylor Swift VIP Concert Tickets</option>
-    <option value="paris">First Class Flights to Paris</option>
-    <option value="avocados">Avocados</option>
-    <option value="coffee">Bags of Coffee Beans</option>
-    <option value="ramen">One-Year Supplies of Instant Noodles</option>
-    <option value="tiger">Pet Tigers</option>
-    <option value="spacex">SpaceX Tickets to Orbit</option>
+    <option value="xbox">Xbox Series X Consoles 🎮</option>
+    <option value="taylor">Taylor Swift VIP Concert Tickets 🎤</option>
+    <option value="paris">First Class Flights to Paris ✈️</option>
+    <option value="avocados">Avocados 🥑</option>
+    <option value="coffee">Bags of Coffee Beans ☕</option>
+    <option value="ramen">One-Year Supplies of Instant Noodles 🍜</option>
+    <option value="tiger">Pet Tigers 🐅</option>
+    <option value="spacex">SpaceX Tickets to Orbit 🚀</option>
     <option value="billboard">Billboards in Times Square (1 day)</option>
-    <option value="pencils">Pencils</option>
-    <option value="toiletpaper">Rolls of Toilet Paper</option>
+    <option value="pencils">Pencils ✏️</option>
+    <option value="toiletpaper">Rolls of Toilet Paper 🧻</option>
     <option value="machu">Trips to Machu Picchu</option>
-    <option value="curling">Curling Lessons</option>
-    <option value="wimbledon">Tickets to Wimbledon Finals</option>
+    <option value="curling">Curling Lessons 🥌</option>
+    <option value="wimbledon">Tickets to Wimbledon Finals 🎾</option>
     <option value="saffron">Ounces of Saffron</option>
-    <option value="paperclips">Paperclips</option>
+    <option value="paperclips">Paperclips 📎</option>
     <option value="toothpicks">Toothpicks</option>
     <option value="jellybeans">Jelly Beans</option>
     <option value="postit">Post-it Notes</option>
-    <option value="rice">Individual Grains of Rice</option>
-    <option value="pingpong">Ping Pong Balls</option>
+    <option value="rice">Individual Grains of Rice 🍚</option>
+    <option value="pingpong">Ping Pong Balls 🏓</option>
     <option value="vampire">Plastic Vampire Teeth</option>
     <option value="lego">Single LEGO Bricks</option>
     <option value="marbles">Marbles</option>
     <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tapes</option>
-    <option value="wax">One-Year Supplies of Turtle Wax</option>
-    <option value="bulb">1915 Thomas Edison Light Bulbs</option>
-    <option value="silver">Mason Jars of US Silver Coins</option>
+    <option value="cassette">'80s Cassette Tapes 📼</option>
+    <option value="wax">One-Year Supplies of Turtle Wax 🐢</option>
+    <option value="bulb">1915 Thomas Edison Light Bulbs 💡</option>
+    <option value="silver">Mason Jars of US Silver Coins 🪙</option>
     <option value="ouija">Ouija Boards</option>
-    <option value="chocolate">Pounds of Belgian Chocolate</option>
-    <option value="beans">Cans of Van Camp’s Pork and Beans</option>
-    <option value="gummybears">Gummy Bears</option>
-    <option value="netflix">Hours of Netflix Streaming</option>
-    <option value="moon">Square Feet of Moon Real Estate</option>
+    <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
+    <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
+    <option value="gummybears">Gummy Bears 🐻</option>
+    <option value="netflix">Hours of Netflix Streaming 📺</option>
+    <option value="moon">Square Feet of Moon Real Estate 🌕</option>
   </select>
 
   <button id="convertBtn">Convert</button>
@@ -101,7 +101,6 @@
 
     convertBtn.addEventListener("click", convert);
 
-    // Robust Enter key handling
     salaryInput.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -109,7 +108,6 @@
       }
     });
 
-    // Fallback document-level listener
     document.addEventListener("keydown", function(event) {
       if (event.key === "Enter" && document.activeElement === salaryInput) {
         event.preventDefault();
@@ -187,22 +185,43 @@
 
       const result = salary / prices[conversionType];
       const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
-      let emoji = "";
-
       const emojis = {
         goldfish: "🐟",
         flamingos: "🦩",
         cookies: "🍪",
-        tiger: "🐅",
+        swim: "🏊‍♂️",
+        everest: "🏔️",
+        uranium: "☢️",
+        superbowl: "🏈",
+        ferrari: "🏎️",
+        harley: "🏍️",
+        stradivarius: "🎻",
+        xbox: "🎮",
+        taylor: "🎤",
+        paris: "✈️",
         avocados: "🥑",
         coffee: "☕",
-        icecream: "🍦",
+        ramen: "🍜",
+        tiger: "🐅",
+        spacex: "🚀",
+        pencils: "✏️",
+        toiletpaper: "🧻",
+        curling: "🥌",
+        wimbledon: "🎾",
+        paperclips: "📎",
+        rice: "🍚",
+        pingpong: "🏓",
+        cassette: "📼",
+        wax: "🐢",
+        bulb: "💡",
+        silver: "🪙",
         chocolate: "🍫",
+        beans: "🥫",
         gummybears: "🐻",
         netflix: "📺",
         moon: "🌕"
       };
-      emoji = emojis[conversionType] || "";
+      const emoji = emojis[conversionType] || "";
 
       showResult(`You could buy ${result.toLocaleString(undefined, {maximumFractionDigits: 2})} ${unit} ${emoji}`);
     }
