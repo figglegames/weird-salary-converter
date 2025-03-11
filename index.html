@@ -29,6 +29,8 @@
       padding-left: 20px;
       opacity: 0;
       transition: opacity 0.5s ease-in;
+      white-space: nowrap; /* Prevent text wrapping */
+      overflow-x: auto; /* Allow horizontal scrolling if too long */
     }
     #result.show {
       opacity: 1;
