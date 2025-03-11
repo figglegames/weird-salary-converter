@@ -97,16 +97,17 @@
   <script>
     const convertBtn = document.getElementById("convertBtn");
     const salaryInput = document.getElementById("salaryInput");
+    const conversionTypeSelect = document.getElementById("conversionType");
     const resultDiv = document.getElementById("result");
 
     convertBtn.addEventListener("click", convert);
 
-    // Single reliable Enter key listener
-    salaryInput.addEventListener("keydown", function(event) {
+    // Enter key listener on the dropdown
+    conversionTypeSelect.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
         convert();
-        salaryInput.focus(); // Ensure input retains focus for next attempt
+        conversionTypeSelect.focus(); // Keep focus on dropdown for next selection
       }
     });
 
@@ -121,7 +122,7 @@
         return;
       }
 
-      const conversionType = document.getElementById("conversionType").value;
+      const conversionType = conversionTypeSelect.value;
       const prices = {
         goldfish: 0.50,
         flamingos: 10,
@@ -179,7 +180,7 @@
       }
 
       const result = salary / prices[conversionType];
-      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.replace(/ .*/, ""); // Strip emoji from unit
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent.replace(/ [^\s]*$/, ""); // Remove emoji (last space and after)
       const emojis = {
         goldfish: "🐟",
         flamingos: "🦩",
