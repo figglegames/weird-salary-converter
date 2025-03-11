@@ -102,7 +102,7 @@
     convertBtn.addEventListener("click", convert);
     salaryInput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
-        event.preventDefault(); // Prevent form-like submission
+        event.preventDefault();
         convert();
       }
     });
@@ -165,7 +165,7 @@
         ouija: 75,
         chocolate: 33,
         beans: 1,
-        gummybears: 0.03,
+        gummybears: 0.03, // $0.03 per gummy bear
         netflix: 0.0139, // ~$15/month ÷ 1080 hours/month
         moon: 0.001 // Hypothetical $1/acre, 1 acre = 1000 sq ft
       };
@@ -175,26 +175,9 @@
         return;
       }
 
-      let result = salary / prices[conversionType];
-      let unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
+      const result = salary / prices[conversionType];
+      const unit = document.querySelector(`#conversionType option[value="${conversionType}"]`).textContent;
       let emoji = "";
-
-      // Dynamic formatting for small units (except rice)
-      if (salary >= 1000 && prices[conversionType] < 0.1 && conversionType !== "rice") {
-        if (conversionType === "toothpicks") {
-          result = result / 1000; // 1000 toothpicks per box
-          unit = "Boxes of Toothpicks";
-        } else if (conversionType === "paperclips") {
-          result = result / 500; // 500 paperclips per box
-          unit = "Boxes of Paperclips";
-        } else if (conversionType === "jellybeans") {
-          result = result / 400; // 400 jelly beans per pound
-          unit = "Pounds of Jelly Beans";
-        } else if (conversionType === "gummybears") {
-          result = result / 500; // 500 gummy bears per pound
-          unit = "Pounds of Gummy Bears";
-        }
-      }
 
       // Add emojis for some items
       const emojis = {
