@@ -99,7 +99,7 @@
       margin: 15px auto;
       padding: 12px;
       background-color: white;
-      border-left: 5px solid #ffeb3b;
+      border-left: 5px solid #ffeb3b; /* Default yellow, will be overridden by JS */
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -192,7 +192,7 @@
     <option value="lego">Single LEGO Bricks</option>
     <option value="marbles">Marbles</option>
     <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tapes</option>
+    <option value="cassette">Vintage Cassette Tapes</option>
     <option value="wax">One-Year Supplies of Turtle Wax 🐢</option>
     <option value="bulb">1915 Thomas Edison Light Bulbs 💡</option>
     <option value="silver">Mason Jars of US Silver Coins</option>
@@ -214,6 +214,7 @@
     const conversionTypeSelect = document.getElementById("conversionType");
     const resultDiv = document.getElementById("result");
     const funFactDiv = document.getElementById("funFact");
+    const funFactContainer = document.getElementById("funFactContainer");
 
     const PRICES = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
@@ -266,7 +267,7 @@
       lego: "If you stacked 40 billion LEGO bricks, they would reach all the way to the moon.",
       marbles: "Marbles have been played with since ancient Egypt, over 3,000 years ago.",
       icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying.",
-      cassette: "Cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side.",
+      cassette: "Vintage cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side.",
       wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere.",
       bulb: "Thomas Edison didn’t invent the light bulb, but he perfected it by making it last longer and be practical for daily use.",
       silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed.",
@@ -277,6 +278,17 @@
       netflix: "Netflix was originally called 'Kibble'.",
       moon: "The moon’s surface is constantly shifting."
     };
+
+    // Array of 6 bright, sporty colors for fun fact border rotation
+    const FUN_FACT_COLORS = [
+      "#ffeb3b", // Yellow
+      "#f44336", // Red
+      "#2196f3", // Blue
+      "#ff9800", // Orange
+      "#4caf50", // Green
+      "#e91e63"  // Pink
+    ];
+    let colorIndex = 0; // Track the current color
 
     conversionTypeSelect.addEventListener("change", convert);
 
@@ -317,7 +329,12 @@
 
       const fractionDigits = result < 1 ? 4 : 2;
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
-      showResult(`You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}`);
+      
+      // Rotate fun fact border color
+      funFactContainer.style.borderLeftColor = FUN_FACT_COLORS[colorIndex];
+      colorIndex = (colorIndex + 1) % FUN_FACT_COLORS.length; // Cycle through colors
+
+      showResult(`You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}`);
       funFactDiv.textContent = `${funFact}`;
     }
 
