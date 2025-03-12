@@ -51,8 +51,8 @@
       pointer-events: none;
     }
     select {
-      font-size: 1.2em; /* Bigger on mobile */
-      padding: 14px; /* Increased padding */
+      font-size: 1.2em;
+      padding: 14px;
       margin: 8px;
       width: 100%;
       max-width: 320px;
@@ -95,31 +95,31 @@
       max-width: 90%;
       margin: 15px auto;
       padding: 12px;
-      background-color: white; /* Removed green background */
+      background-color: white;
       border-left: 5px solid #2e7d32;
-      text-align: left; /* Left-aligned for flow */
+      text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     #funFactLabel {
-      display: inline; /* Inline for sentence flow */
+      display: inline;
       background-color: #ffffff;
       color: #2e7d32;
-      padding: 2px 6px; /* Reduced padding for less bulk */
+      padding: 2px 6px;
       border-radius: 3px;
       font-size: 1.2em;
       font-weight: bold;
       text-transform: uppercase;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       background-image: linear-gradient(to right, #f9f9f9, #ffffff);
-      margin-right: 5px; /* Space before fact */
+      margin-right: 5px;
     }
     #funFact {
       font-size: 1.4em;
       color: #333;
       line-height: 1.4;
-      display: inline; /* Inline for sentence flow */
+      display: inline;
     }
 
     /* Tablet Adjustments */
@@ -201,7 +201,7 @@
     <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
     <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
     <option value="gummybears">Gummy Bears</option>
-    <option value="netflix">Hours of Netflix Streaming</option> <!-- Removed emoji -->
+    <option value="netflix">Hours of Netflix Streaming</option>
     <option value="moon">Square Feet of Moon Real Estate</option>
   </select>
   <div id="result" aria-live="polite"></div>
@@ -314,7 +314,7 @@
 
       const fractionDigits = result < 1 ? 4 : 2;
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
-      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`, false);
+      showResult(`You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`, false);
       funFactDiv.textContent = funFact;
     }
 
