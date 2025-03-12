@@ -52,16 +52,31 @@
       word-wrap: break-word; /* Enable wraparound */
       overflow-wrap: break-word; /* Modern alternative for wrap */
     }
-    #funFact {
-      font-size: 1.4em; /* Increased font size */
+    #funFactContainer {
       max-width: 90%;
       margin: 15px auto;
       padding: 12px;
       background-color: #e0f7e0;
       border-left: 5px solid #32CD32;
-      color: #333;
+      display: flex;
+      align-items: center;
       word-wrap: break-word; /* Enable wraparound */
       overflow-wrap: break-word; /* Modern alternative for wrap */
+    }
+    #funFactLabel {
+      background-color: #1E90FF;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-right: 10px;
+      white-space: nowrap;
+    }
+    #funFact {
+      font-size: 1.4em; /* Increased font size */
+      color: #333;
+      flex: 1;
     }
 
     /* Tablet and Laptop Adjustments */
@@ -70,7 +85,9 @@
       input, select, button { font-size: 1.2em; padding: 15px; max-width: 400px; }
       button { max-width: 200px; }
       #result { font-size: 2em; max-width: 600px; }
-      #funFact { font-size: 1.6em; max-width: 600px; }
+      #funFactLabel { font-size: 1.4em; }
+      #funFact { font-size: 1.6em; }
+      #funFactContainer { max-width: 600px; }
     }
 
     /* Laptop Adjustments */
@@ -78,7 +95,7 @@
       body { margin: 20px; }
       h1 { font-size: 3em; }
       input, select, button { max-width: 500px; }
-      #result, #funFact { max-width: 800px; }
+      #result, #funFactContainer { max-width: 800px; }
     }
   </style>
 </head>
@@ -87,58 +104,61 @@
   <p>Enter your annual salary (in dollars):</p>
   <input type="number" id="salaryInput" placeholder="e.g. 50000">
   <select id="conversionType">
-    <option value="goldfish">Goldfish 🐟</option>
-    <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
-    <option value="cookies">Girl Scout Cookies 🍪</option>
-    <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
-    <option value="everest">Minutes at the Top of Mount Everest 🏔️</option>
-    <option value="uranium">Ounces of Uranium ☢️</option>
-    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime 🏈</option>
-    <option value="ferrari">Ferrari 296 GTB 🏎️</option>
-    <option value="harley">Harley Davidson Motorcycles 🏍️</option>
+    <option value="goldfish">Goldfish</option>
+    <option value="flamingos">Plastic Lawn Flamingos</option>
+    <option value="cookies">Girl Scout Cookies</option>
+    <option value="swim">Minutes of Swim Time in Iceland</option>
+    <option value="everest">Minutes at the Top of Mount Everest</option>
+    <option value="uranium">Ounces of Uranium</option>
+    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime</option>
+    <option value="ferrari">Ferrari 296 GTB</option>
+    <option value="harley">Harley Davidson Motorcycles</option>
     <option value="teepees">Teepees</option>
     <option value="smoke">Jars of Frozen Smoke</option>
-    <option value="stradivarius">Stradivarius Violins 🎻</option>
+    <option value="stradivarius">Stradivarius Violins</option>
     <option value="rolex">Rolex Submariner Watches</option>
-    <option value="xbox">Xbox Series X Consoles 🎮</option>
-    <option value="taylor">Taylor Swift VIP Concert Tickets 🎤</option>
-    <option value="paris">First Class Flights to Paris ✈️</option>
-    <option value="avocados">Avocados 🥑</option>
-    <option value="coffee">Bags of Coffee Beans ☕</option>
-    <option value="ramen">One-Year Supplies of Instant Noodles 🍜</option>
-    <option value="tiger">Pet Tigers 🐅</option>
-    <option value="spacex">SpaceX Tickets to Orbit 🚀</option>
-    <option value="billboard">Billboards in Times Square (1 day)</option>
-    <option value="pencils">Pencils ✏️</option>
-    <option value="toiletpaper">Rolls of Toilet Paper 🧻</option>
+    <option value="xbox">Xbox Series X Consoles</option>
+    <option value="taylor">Taylor Swift VIP Concert Tickets</option>
+    <option value="paris">First Class Flights to Paris</option>
+    <option value="avocados">Avocados</option>
+    <option value="coffee">Bags of Coffee Beans</option>
+    <option value="ramen">One-Year Supplies of Instant Noodles</option>
+    <option value="tiger">Pet Tigers</option>
+    <option value="spacex">SpaceX Tickets to Orbit</option>
+    <option value="billboard">Billboards in Times Square for One Day</option>
+    <option value="pencils">Pencils</option>
+    <option value="toiletpaper">Rolls of Toilet Paper</option>
     <option value="machu">Trips to Machu Picchu</option>
-    <option value="curling">Curling Lessons 🥌</option>
-    <option value="wimbledon">Tickets to Wimbledon Finals 🎾</option>
+    <option value="curling">Curling Lessons</option>
+    <option value="wimbledon">Tickets to Wimbledon Finals</option>
     <option value="saffron">Ounces of Saffron</option>
-    <option value="paperclips">Paperclips 📎</option>
+    <option value="paperclips">Paperclips</option>
     <option value="toothpicks">Toothpicks</option>
     <option value="jellybeans">Jelly Beans</option>
     <option value="postit">Post-it Notes</option>
-    <option value="rice">Individual Grains of Rice 🍚</option>
-    <option value="pingpong">Ping Pong Balls 🏓</option>
+    <option value="rice">Individual Grains of Rice</option>
+    <option value="pingpong">Ping Pong Balls</option>
     <option value="vampire">Plastic Vampire Teeth</option>
     <option value="lego">Single LEGO Bricks</option>
     <option value="marbles">Marbles</option>
     <option value="icecream">Gallons of Premium Ice Cream</option>
-    <option value="cassette">'80s Cassette Tapes 📼</option>
-    <option value="wax">One-Year Supplies of Turtle Wax 🐢</option>
-    <option value="bulb">1915 Thomas Edison Light Bulbs 💡</option>
+    <option value="cassette">'80s Cassette Tapes</option>
+    <option value="wax">One-Year Supplies of Turtle Wax</option>
+    <option value="bulb">1915 Thomas Edison Light Bulbs</option>
     <option value="silver">Mason Jars of US Silver Coins</option>
     <option value="ouija">Ouija Boards</option>
-    <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
-    <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
-    <option value="gummybears">Gummy Bears 🐻</option>
-    <option value="netflix">Hours of Netflix Streaming 📺</option>
-    <option value="moon">Square Feet of Moon Real Estate 🌕</option>
+    <option value="chocolate">Pounds of Belgian Chocolate</option>
+    <option value="beans">Cans of Van Camp’s Pork and Beans</option>
+    <option value="gummybears">Gummy Bears</option>
+    <option value="netflix">Hours of Netflix Streaming</option>
+    <option value="moon">Square Feet of Moon Real Estate</option>
   </select>
   <button id="convertBtn">Convert</button>
   <div id="result"></div>
-  <p id="funFact"></p>
+  <div id="funFactContainer">
+    <span id="funFactLabel">Did you know?</span>
+    <span id="funFact"></span>
+  </div>
 
   <script>
     const convertBtn = document.getElementById("convertBtn");
@@ -175,78 +195,66 @@
       }
 
       const result = salary / prices[conversionType];
-      const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text.replace(/ [^\s]*$/, "");
+      const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
       let finalUnit = unit;
       if (result < 2 && result > 0) {
         if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
-        if (unit === "Billboards in Times Square (1 day)") finalUnit = "Billboard in Times Square (1 day)";
+        if (unit === "Billboards in Times Square for One Day") finalUnit = "Billboard in Times Square for One Day";
       }
-
-      const emojis = {
-        goldfish: "🐟", flamingos: "🦩", cookies: "🍪", swim: "🏊‍♂️", everest: "🏔️",
-        uranium: "☢️", superbowl: "🏈", ferrari: "🏎️", harley: "🏍️", stradivarius: "🎻",
-        xbox: "🎮", taylor: "🎤", paris: "✈️", avocados: "🥑", coffee: "☕",
-        ramen: "🍜", tiger: "🐅", spacex: "🚀", pencils: "✏️", toiletpaper: "🧻",
-        curling: "🥌", wimbledon: "🎾", paperclips: "📎", rice: "🍚", pingpong: "🏓",
-        vampire: "🧛", lego: "🧱", marbles: "🎱", icecream: "🍦", cassette: "📼",
-        wax: "🐢", bulb: "💡", silver: "🪙", ouija: "🔮", chocolate: "🍫",
-        beans: "🥫", gummybears: "🐻", netflix: "📺", moon: "🌕"
-      };
-      const emoji = emojis[conversionType] || "";
 
       const fractionDigits = result < 1 ? 4 : 2;
       const funFacts = {
-        goldfish: "Goldfish can live up to 10 years with proper care!",
-        flamingos: "Plastic lawn flamingos were first popularized in the 1950s!",
-        cookies: "Girl Scout Cookies have been sold since 1917 to fund troop activities!",
-        swim: "Iceland’s hot springs are heated by geothermal energy!",
-        everest: "Mount Everest is 29,032 feet high and grows a few millimeters each year!",
-        uranium: "Small nuclear reactors use 1-10 metric tons of uranium!",
-        superbowl: "A 30-second Super Bowl ad can cost over $5 million!",
-        ferrari: "The Ferrari 296 GTB can go from 0 to 60 mph in under 3 seconds!",
-        harley: "The 'potato-potato' sound is a nickname for the distinctive rumble of a Harley-Davidson engine at idle!",
-        teepees: "Teepees were designed to be taken down and packed up in under an hour!",
-        smoke: "Frozen smoke, or aerogel, is one of the lightest materials on Earth!",
-        stradivarius: "The most expensive Stradivarius ever sold is the 'Da Vinci' Stradivarius (1714), which went for $15.3 million in 2022!",
-        rolex: "The Rolex Submariner was James Bond’s watch, worn by Sean Connery in Dr. No (1962)!",
-        xbox: "The Xbox Series X controller still uses AA batteries, even in 2024!",
-        taylor: "Taylor Swift’s VIP tickets sell out instantly!",
-        paris: "On select airlines, first-class seats to Paris include a shower spa!",
-        avocados: "Avocados are technically berries and are packed with healthy fats!",
-        coffee: "Coffee beans are actually seeds of the coffee plant!",
-        ramen: "In space, astronauts eat specially made zero-gravity instant noodles that don’t need boiling water!",
-        tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular!",
-        spacex: "SpaceX missions offer zero-gravity flips, insane views, and no in-flight peanuts!",
-        billboard: "A Times Square billboard can be seen by millions each day!",
-        pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long!",
-        toiletpaper: "Americans use more toilet paper than any other country, averaging 57 sheets per day!",
-        machu: "Parts of Machu Picchu are sinking at a rate of half an inch per year!",
-        curling: "Curling stones are made from a specific type of granite found only on Ailsa Craig, a tiny island in Scotland!",
-        wimbledon: "Wimbledon balls are kept at exactly 68°F, and over 54,000 are used throughout the tournament!",
-        saffron: "Saffron is the most expensive spice in the world. It takes about 75,000 saffron flowers to produce just one pound of saffron!",
-        paperclips: "Kyle MacDonald famously traded a single red paperclip all the way up to a house in 2006!",
-        toothpicks: "Mark Twain hated loud toothpick users!",
-        jellybeans: "Jelly beans were first sold in the U.S. during the Civil War!",
-        postit: "Post-it Notes were invented by accident in 1968 by Spencer Silver!",
-        rice: "There are over 40,000 varieties of rice!",
-        pingpong: "Ping pong was originally called 'whiff-whaff', because of the sound the ball made when hit!",
-        vampire: "Plastic vampire teeth guarantee you’ll spit on at least one person while talking!",
-        lego: "LEGO bricks were first produced in 1949 by a Danish company!",
-        marbles: "Marbles have been played with since ancient Egypt, over 3,000 years ago!",
-        icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying!",
-        cassette: "Cassettes could hold hidden tracks, and some bands recorded secret songs in the blank space at the end of a side!",
-        wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere!",
-        bulb: "Thomas Edison didn’t invent the light bulb, but he perfected it by making it last longer and be practical for daily use!",
-        silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed!",
-        ouija: "‘Ouija’ is a combination of the French and German words for 'yes', 'oui' and 'ja'!",
-        chocolate: "Belgium produces over 170,000 tons of chocolate annually!",
-        beans: "Van Camp’s Pork and Beans was once sold in glass jars!",
-        gummybears: "Gummy bears were initially called 'Dancing Bears'!",
-        netflix: "Netflix was originally called 'Kibble'!",
-        moon: "The moon’s surface is constantly shifting!"
+        goldfish: "Goldfish can live up to 10 years with proper care",
+        flamingos: "Plastic lawn flamingos were first popularized in the 1950s",
+        cookies: "Girl Scout Cookies have been sold since 1917 to fund troop activities",
+        swim: "Iceland’s hot springs are heated by geothermal energy",
+        everest: "Mount Everest is 29,032 feet high and grows a few millimeters each year",
+        uranium: "Small nuclear reactors use 1-10 metric tons of uranium",
+        superbowl: "A 30-second Super Bowl ad can cost over $5 million",
+        ferrari: "The Ferrari 296 GTB can go from 0 to 60 mph in under 3 seconds",
+        harley: "The 'potato-potato' sound is a nickname for the distinctive rumble of a Harley-Davidson engine at idle",
+        teepees: "Teepees were designed by the Plains Indians to be taken down and packed up in under an hour",
+        smoke: "Frozen smoke, or aerogel, is one of the lightest materials on Earth",
+        stradivarius: "The most expensive Stradivarius ever sold is the 'Da Vinci' Stradivarius (1714), which went for $15.3 million in 2022",
+        rolex: "The Rolex Submariner was James Bond’s watch, worn by Sean Connery in Dr. No (1962)",
+        xbox: "The Xbox Series X controller still uses AA batteries",
+        taylor: "Taylor Swift’s VIP tickets sell out instantly",
+        paris: "On select airlines, first-class seats to Paris include a shower spa",
+        avocados: "Avocados are technically berries and are packed with healthy fats",
+        coffee: "Coffee beans are actually seeds of the coffee plant",
+        ramen: "In space, astronauts eat specially made zero-gravity instant noodles that don’t need boiling water",
+        tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular with the neighbors",
+        spacex: "SpaceX missions offer zero-gravity flips, insane views, and no in-flight peanuts",
+        billboard: "A Times Square billboard can be seen by millions each day",
+        pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long",
+        toiletpaper: "Americans use more toilet paper than any other country, averaging 57 sheets per day",
+        machu: "Parts of Machu Picchu are sinking at a rate of half an inch per year",
+        curling: "Curling stones are made from a specific type of granite found only on Ailsa Craig, a tiny island in Scotland",
+        wimbledon: "Wimbledon balls are kept at exactly 68°F, and over 54,000 are used throughout the tournament",
+        saffron: "Saffron is the most expensive spice in the world. It takes about 75,000 saffron flowers to produce just one pound of saffron",
+        paperclips: "Kyle MacDonald famously traded a single red paperclip all the way up to a house in 2006",
+        toothpicks: "Mark Twain hated loud toothpick users",
+        jellybeans: "Jelly beans were first sold in the U.S. during the Civil War",
+        postit: "Post-it Notes were invented by accident in 1968 by Spencer Silver",
+        rice: "There are over 40,000 varieties of rice",
+        pingpong: "Ping pong was originally called 'whiff-whaff', because of the sound the ball made when hit",
+        vampire: "Plastic vampire teeth guarantee you’ll spit on at least one person while talking",
+        lego: "If you stacked 40 billion LEGO bricks, they would reach all the way to the moon",
+        marbles: "Marbles have been played with since ancient Egypt, over 3,000 years ago",
+        icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying",
+        cassette: "Cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side",
+        wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere",
+        bulb: "Thomas Edison didn’t invent the light bulb, but he perfected it by making it last longer and be practical for daily use",
+        silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed",
+        ouija: "‘Ouija’ is a combination of the French and German words for 'yes', 'oui' and 'ja'",
+        chocolate: "Belgium produces over 170,000 tons of chocolate annually",
+        beans: "Van Camp’s Pork and Beans was once sold in glass jars",
+        gummybears: "Gummy bears were initially called 'Dancing Bears'",
+        netflix: "Netflix was originally called 'Kibble'",
+        moon: "The moon’s surface is constantly shifting"
       };
-      const funFact = funFacts[conversionType] || "This item has a fascinating history!";
-      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit} ${emoji}`);
+      const funFact = funFacts[conversionType] || "This item has a fascinating history";
+      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`);
       funFactDiv.textContent = `${funFact}`;
     }
 
