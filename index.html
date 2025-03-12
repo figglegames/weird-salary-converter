@@ -76,7 +76,7 @@
       margin: 20px auto;
       padding: 15px;
       background-color: white;
-      border-left: 5px solid #2e7d32; /* Green for results */
+      border-left: 5px solid #2e7d32;
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@
       margin: 15px auto;
       padding: 12px;
       background-color: white;
-      border-left: 5px solid #ffeb3b; /* Yellow for fun facts */
+      border-left: 5px solid #ffeb3b;
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -244,7 +244,7 @@
       rolex: "The Rolex Submariner was James Bond’s watch, worn by Sean Connery in Dr. No (1962).",
       xbox: "The Xbox Series X controller still uses AA batteries.",
       taylor: "Taylor Swift’s VIP tickets sell out instantly.",
-      paris: "On select airlines, first-class seats to Paris include a shower spa.",
+      paris: "On select airlines, first-class seats to Paris include a shower spa!",
       avocados: "Avocados are technically berries and are packed with healthy fats.",
       coffee: "Coffee beans are actually seeds of the coffee plant.",
       ramen: "In space, astronauts eat specially made zero-gravity instant noodles that don’t need boiling water.",
@@ -312,13 +312,22 @@
       // Special handling for "One-Year Supplies"
       if (conversionType === "ramen" || conversionType === "wax") {
         finalUnit = conversionType === "ramen" ? "instant noodles" : "Turtle Wax";
-        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: 2 })} years of ${finalUnit}`;
+        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: 2 })} years of ${finalUnit}.`;
       } else {
         if (result < 2 && result > 0) {
           if (unit === "Billboards in Times Square for One Day") finalUnit = "Billboard in Times Square for One Day";
         }
         const fractionDigits = result < 1 ? 4 : 2;
-        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`;
+
+        // Lowercase items in sentence unless they are proper nouns
+        const properNouns = [
+          "Super Bowl", "Ferrari 296 GTB", "Harley Davidson", "Stradivarius", "Rolex Submariner",
+          "Xbox Series X", "Taylor Swift", "SpaceX", "Times Square", "Machu Picchu", "Wimbledon",
+          "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans"
+        ];
+        finalUnit = properNouns.includes(unit) ? unit : unit.toLowerCase();
+
+        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}.`;
       }
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history.";
