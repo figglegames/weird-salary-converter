@@ -6,61 +6,79 @@
   <title>Weird Salary Converter</title>
   <meta name="description" content="Convert your salary into quirky equivalents!">
   <style>
+    /* Mobile-first design */
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 10px;
       background-color: #f0f4f8;
       text-align: center;
+      min-height: 100vh;
     }
     h1 {
       color: #1E90FF;
+      font-size: 1.8em; /* Larger for mobile */
     }
-    input, button, select {
+    p {
       font-size: 1em;
-      padding: 10px;
+    }
+    input, select, button {
+      font-size: 1em;
+      padding: 12px;
       margin: 5px;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
     }
     button {
       background-color: #1E90FF;
       color: white;
       border: 2px solid #32CD32;
       cursor: pointer;
+      width: auto;
+      max-width: 150px;
     }
     button:hover {
       background-color: #104E8B;
     }
     #result {
-      font-size: 1.4em;
+      font-size: 1.6em; /* Increased font size */
       margin-top: 20px;
       text-align: left;
-      max-width: 600px;
+      max-width: 90%;
       margin: 0 auto;
-      line-height: 1.6;
-      font-weight: bold;
-      padding: 10px;
-      padding-left: 20px;
-      opacity: 0;
-      transition: opacity 0.5s ease-in;
-      white-space: nowrap; /* Prevent wrapping */
-      overflow-x: auto; /* Allow horizontal scroll if needed */
-    }
-    #result.show {
-      opacity: 1;
+      padding: 15px;
+      background-color: white;
+      border-left: 5px solid #32CD32;
+      word-wrap: break-word; /* Enable wraparound */
+      overflow-wrap: break-word; /* Modern alternative for wrap */
     }
     #funFact {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 10px;
+      font-size: 1.4em; /* Increased font size */
+      max-width: 90%;
+      margin: 15px auto;
+      padding: 12px;
       background-color: #e0f7e0;
       border-left: 5px solid #32CD32;
       color: #333;
-      white-space: nowrap; /* Prevent wrapping */
-      overflow-x: auto; /* Allow horizontal scroll if needed */
+      word-wrap: break-word; /* Enable wraparound */
+      overflow-wrap: break-word; /* Modern alternative for wrap */
     }
-    @media (max-width: 600px) {
-      #result, #funFact {
-        max-width: 100%;
-      }
+
+    /* Tablet and Laptop Adjustments */
+    @media (min-width: 768px) {
+      h1 { font-size: 2.5em; }
+      input, select, button { font-size: 1.2em; padding: 15px; max-width: 400px; }
+      button { max-width: 200px; }
+      #result { font-size: 2em; max-width: 600px; }
+      #funFact { font-size: 1.6em; max-width: 600px; }
+    }
+
+    /* Laptop Adjustments */
+    @media (min-width: 1024px) {
+      body { margin: 20px; }
+      h1 { font-size: 3em; }
+      input, select, button { max-width: 500px; }
+      #result, #funFact { max-width: 800px; }
     }
   </style>
 </head>
@@ -170,8 +188,9 @@
         xbox: "🎮", taylor: "🎤", paris: "✈️", avocados: "🥑", coffee: "☕",
         ramen: "🍜", tiger: "🐅", spacex: "🚀", pencils: "✏️", toiletpaper: "🧻",
         curling: "🥌", wimbledon: "🎾", paperclips: "📎", rice: "🍚", pingpong: "🏓",
-        cassette: "📼", wax: "🐢", bulb: "💡", chocolate: "🍫", beans: "🥫",
-        gummybears: "🐻", netflix: "📺", moon: "🌕"
+        vampire: "🧛", lego: "🧱", marbles: "🎱", icecream: "🍦", cassette: "📼",
+        wax: "🐢", bulb: "💡", silver: "🪙", ouija: "🔮", chocolate: "🍫",
+        beans: "🥫", gummybears: "🐻", netflix: "📺", moon: "🌕"
       };
       const emoji = emojis[conversionType] || "";
 
@@ -196,7 +215,7 @@
         avocados: "Avocados are technically berries and are packed with healthy fats!",
         coffee: "Coffee beans are actually seeds of the coffee plant!",
         ramen: "In space, astronauts eat specially made zero-gravity instant noodles that don’t need boiling water!",
-        tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular with the neighbors!",
+        tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular!",
         spacex: "SpaceX missions offer zero-gravity flips, insane views, and no in-flight peanuts!",
         billboard: "A Times Square billboard can be seen by millions each day!",
         pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long!",
