@@ -91,6 +91,10 @@
       border-left: 5px solid #d32f2f;
       background-color: #ffebee;
     }
+    #result .number {
+      color: #388e3c; /* Slightly brighter medium-dark green */
+      margin-left: 2px; /* Reduced gap after approx. */
+    }
     #funFactContainer {
       max-width: 90%;
       margin: 15px auto;
@@ -251,12 +255,12 @@
       tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular with the neighbors.",
       spacex: "SpaceX missions offer zero-gravity flips, insane views, and no in-flight peanuts.",
       billboard: "Approx. 1.5 million people pass through Times Square every day.",
-      pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long.",
+      pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long!",
       toiletpaper: "Americans use more toilet paper than any other country, averaging 57 sheets per day.",
       machu: "Parts of Machu Picchu are sinking at a rate of half an inch per year.",
       curling: "Curling stones are made from a specific type of granite found only on Ailsa Craig, a tiny island in Scotland.",
       wimbledon: "Wimbledon balls are kept at exactly 68°F, and over 54,000 are used throughout the tournament.",
-      saffron: "Saffron is the most expensive spice in the world. It takes about 75,000 saffron flowers to produce just one pound of saffron.",
+      saffron: "Saffron is the most expensive spice in the world. It takes about 75,000 saffron flowers to produce just one pound of saffron!",
       paperclips: "Kyle MacDonald famously traded a single red paperclip all the way up to a house in 2006.",
       toothpicks: "Mark Twain hated loud toothpick users.",
       jellybeans: "Jelly beans were first sold in the U.S. during the Civil War.",
@@ -276,7 +280,9 @@
       beans: "Van Camp’s Pork and Beans was once sold in glass jars.",
       gummybears: "Gummy bears were initially called 'Dancing Bears'.",
       netflix: "Netflix was originally called 'Kibble'.",
-      moon: "The moon’s surface is constantly shifting."
+      moon: "The moon “
+
+’s surface is constantly shifting."
     };
 
     conversionTypeSelect.addEventListener("change", convert);
@@ -309,25 +315,29 @@
       let finalUnit = unit;
       let resultText;
 
-      // Special handling for "One-Year Supplies"
+      // Special handling for "One-Year Supplies" and specific pluralization
       if (conversionType === "ramen" || conversionType === "wax") {
         finalUnit = conversionType === "ramen" ? "instant noodles" : "Turtle Wax";
-        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: 2 })} years of ${finalUnit}.`;
+        resultText = `You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years of ${finalUnit}.`;
       } else {
-        if (result < 2 && result > 0) {
-          if (unit === "Billboards in Times Square for One Day") finalUnit = "Billboard in Times Square for One Day";
+        // Handle pluralization for "Pet Tigers" and "Billboards in Times Square for One Day"
+        if (conversionType === "tiger") {
+          finalUnit = result <= 1 ? "pet tiger" : "pet tigers";
+        } else if (conversionType === "billboard") {
+          finalUnit = result <= 1 ? "billboard in Times Square for one day" : "billboards in Times Square for one day";
+        } else if (result < 2 && result > 0 && unit === "Billboards in Times Square for One Day") {
+          finalUnit = "billboard in Times Square for one day"; // Edge case for < 2
         }
-        const fractionDigits = result < 1 ? 4 : 2;
 
-        // Lowercase items in sentence unless they are proper nouns
+        const fractionDigits = result < 1 ? 4 : 2;
         const properNouns = [
           "Super Bowl", "Ferrari 296 GTB", "Harley Davidson", "Stradivarius", "Rolex Submariner",
           "Xbox Series X", "Taylor Swift", "SpaceX", "Times Square", "Machu Picchu", "Wimbledon",
           "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans"
         ];
-        finalUnit = properNouns.includes(unit) ? unit : unit.toLowerCase();
+        finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
 
-        resultText = `You could buy approx. ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}.`;
+        resultText = `You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
       }
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history.";
@@ -336,7 +346,7 @@
     }
 
     function showResult(message, isError = false) {
-      resultDiv.textContent = message;
+      resultDiv.innerHTML = message; // Use innerHTML to render the <span>
       resultDiv.classList.remove("show", "error");
       if (isError) resultDiv.classList.add("error");
       setTimeout(() => resultDiv.classList.add("show"), 10);
