@@ -10,11 +10,12 @@
       font-family: Arial, sans-serif;
       margin: 20px;
       background-color: #f0f4f8;
+      text-align: center;
     }
     h1 {
       color: #1E90FF;
     }
-    input, button {
+    input, button, select {
       font-size: 1em;
       padding: 10px;
       margin: 5px;
@@ -28,22 +29,43 @@
     button:hover {
       background-color: #104E8B;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    #result {
+      font-size: 1.4em;
+      margin-top: 20px;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: bold;
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 5px solid #32CD32;
+      white-space: nowrap;
+      overflow-x: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+    }
+    #result.show {
+      opacity: 1;
+    }
+    #funFact {
       max-width: 600px;
       margin: 20px auto;
-    }
-    li {
       padding: 10px;
-      border-bottom: 1px solid #32CD32;
-      cursor: pointer;
+      background-color: #e0f7e0;
+      border-left: 5px solid #32CD32;
+      color: #333;
     }
-    li:hover {
-      background-color: #e0e7f0;
+    select {
+      background-color: white;
+      border: 2px solid #32CD32;
     }
     @media (max-width: 600px) {
-      ul { max-width: 100%; }
+      #result, #funFact, select {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
     }
   </style>
 </head>
@@ -51,100 +73,188 @@
   <h1>Weird Salary Converter</h1>
   <p>Enter your annual salary (in dollars):</p>
   <input type="number" id="salaryInput" placeholder="e.g. 50000">
-  <ul id="optionList"></ul>
-  <button id="submitBtn">Get Your Weird Salary!</button>
+  <select id="conversionType">
+    <option value="goldfish">Goldfish 🐟</option>
+    <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
+    <option value="cookies">Girl Scout Cookies 🍪</option>
+    <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
+    <option value="everest">Minutes at the Top of Mount Everest 🏔️</option>
+    <option value="uranium">Ounces of Uranium ☢️</option>
+    <option value="superbowl">Milliseconds of Super Bowl Commercial Airtime 🏈</option>
+    <option value="ferrari">Ferrari 296 GTB 🏎️</option>
+    <option value="harley">Harley Davidson Motorcycles 🏍️</option>
+    <option value="teepees">Teepees</option>
+    <option value="smoke">Jars of Frozen Smoke</option>
+    <option value="stradivarius">Stradivarius Violins 🎻</option>
+    <option value="rolex">Rolex Submariner Watches</option>
+    <option value="xbox">Xbox Series X Consoles 🎮</option>
+    <option value="taylor">Taylor Swift VIP Concert Tickets 🎤</option>
+    <option value="paris">First Class Flights to Paris ✈️</option>
+    <option value="avocados">Avocados 🥑</option>
+    <option value="coffee">Bags of Coffee Beans ☕</option>
+    <option value="ramen">One-Year Supplies of Instant Noodles 🍜</option>
+    <option value="tiger">Pet Tigers 🐅</option>
+    <option value="spacex">SpaceX Tickets to Orbit 🚀</option>
+    <option value="billboard">Billboards in Times Square (1 day)</option>
+    <option value="pencils">Pencils ✏️</option>
+    <option value="toiletpaper">Rolls of Toilet Paper 🧻</option>
+    <option value="machu">Trips to Machu Picchu</option>
+    <option value="curling">Curling Lessons 🥌</option>
+    <option value="wimbledon">Tickets to Wimbledon Finals 🎾</option>
+    <option value="saffron">Ounces of Saffron</option>
+    <option value="paperclips">Paperclips 📎</option>
+    <option value="toothpicks">Toothpicks</option>
+    <option value="jellybeans">Jelly Beans</option>
+    <option value="postit">Post-it Notes</option>
+    <option value="rice">Individual Grains of Rice 🍚</option>
+    <option value="pingpong">Ping Pong Balls 🏓</option>
+    <option value="vampire">Plastic Vampire Teeth</option>
+    <option value="lego">Single LEGO Bricks</option>
+    <option value="marbles">Marbles</option>
+    <option value="icecream">Gallons of Premium Ice Cream</option>
+    <option value="cassette">'80s Cassette Tapes 📼</option>
+    <option value="wax">One-Year Supplies of Turtle Wax 🐢</option>
+    <option value="bulb">1915 Thomas Edison Light Bulbs 💡</option>
+    <option value="silver">Mason Jars of US Silver Coins</option>
+    <option value="ouija">Ouija Boards</option>
+    <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
+    <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
+    <option value="gummybears">Gummy Bears 🐻</option>
+    <option value="netflix">Hours of Netflix Streaming 📺</option>
+    <option value="moon">Square Feet of Moon Real Estate 🌕</option>
+  </select>
+  <button id="convertBtn">Convert</button>
+  <div id="result"></div>
+  <p id="funFact"></p>
 
   <script>
+    const convertBtn = document.getElementById("convertBtn");
     const salaryInput = document.getElementById("salaryInput");
-    const optionList = document.getElementById("optionList");
-    const submitBtn = document.getElementById("submitBtn");
-    const prices = {
-      goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
-      uranium: 3.13, superbowl: 533.33, ferrari: 300000, harley: 25000, teepees: 2000,
-      smoke: 50, stradivarius: 11000000, rolex: 10000, xbox: 500, taylor: 5000,
-      paris: 7000, avocados: 2, coffee: 15, ramen: 300, tiger: 50000, spacex: 450000,
-      billboard: 50000, pencils: 0.10, toiletpaper: 1, machu: 2500, curling: 100,
-      wimbledon: 2000, saffron: 5000, paperclips: 0.01, toothpicks: 0.005, jellybeans: 0.02,
-      postit: 0.10, rice: 0.0002, pingpong: 0.25, vampire: 0.75, lego: 0.15,
-      marbles: 0.20, icecream: 5, cassette: 3.30, wax: 10, bulb: 65, silver: 62,
-      ouija: 75, chocolate: 33, beans: 1, gummybears: 0.03, netflix: 0.0139, moon: 0.001
-    };
+    const conversionTypeSelect = document.getElementById("conversionType");
+    const resultDiv = document.getElementById("result");
+    const funFactDiv = document.getElementById("funFact");
 
-    const displayNames = {
-      goldfish: "Goldfish",
-      flamingos: "Plastic Lawn Flamingos",
-      cookies: "Girl Scout Cookies",
-      swim: "Minutes of Swim Time in Iceland",
-      everest: "Minutes at the Top of Mount Everest",
-      uranium: "Ounces of Uranium",
-      superbowl: "Milliseconds of Super Bowl Commercial Airtime",
-      ferrari: "Ferrari 296 GTB",
-      harley: "Harley Davidson Motorcycles",
-      teepees: "Teepees",
-      smoke: "Jars of Frozen Smoke",
-      stradivarius: "Stradivarius Violins",
-      rolex: "Rolex Submariner Watches",
-      xbox: "Xbox Series X Consoles",
-      taylor: "Taylor Swift VIP Concert Tickets",
-      paris: "First Class Flights to Paris",
-      avocados: "Avocados",
-      coffee: "Bags of Coffee Beans",
-      ramen: "One-Year Supplies of Instant Noodles",
-      tiger: "Pet Tigers",
-      spacex: "SpaceX Tickets to Orbit",
-      billboard: "Billboards in Times Square (1 day)",
-      pencils: "Pencils",
-      toiletpaper: "Rolls of Toilet Paper",
-      machu: "Trips to Machu Picchu",
-      curling: "Curling Lessons",
-      wimbledon: "Tickets to Wimbledon Finals",
-      saffron: "Ounces of Saffron",
-      paperclips: "Paperclips",
-      toothpicks: "Toothpicks",
-      jellybeans: "Jelly Beans",
-      postit: "Post-it Notes",
-      rice: "Individual Grains of Rice",
-      pingpong: "Ping Pong Balls",
-      vampire: "Plastic Vampire Teeth",
-      lego: "Single LEGO Bricks",
-      marbles: "Marbles",
-      icecream: "Gallons of Premium Ice Cream",
-      cassette: "'80s Cassette Tapes",
-      wax: "One-Year Supplies of Turtle Wax",
-      bulb: "1915 Thomas Edison Light Bulbs",
-      silver: "Mason Jars of US Silver Coins",
-      ouija: "Ouija Boards",
-      chocolate: "Pounds of Belgian Chocolate",
-      beans: "Cans of Van Camp’s Pork and Beans",
-      gummybears: "Gummy Bears",
-      netflix: "Hours of Netflix Streaming",
-      moon: "Square Feet of Moon Real Estate"
-    };
+    convertBtn.addEventListener("click", convert);
 
-    Object.keys(prices).forEach(key => {
-      const li = document.createElement("li");
-      li.textContent = displayNames[key];
-      li.dataset.value = key;
-      li.addEventListener("click", () => {
-        const salary = parseFloat(salaryInput.value);
-        if (!isNaN(salary) && salary >= 1) {
-          window.location.href = `result.html?salary=${salary}&option=${key}`;
-        } else {
-          alert("Please enter a valid salary of at least $1.");
-        }
-      });
-      optionList.appendChild(li);
-    });
-
-    submitBtn.addEventListener("click", () => {
-      const salary = parseFloat(salaryInput.value);
-      if (!isNaN(salary) && salary >= 1) {
-        const selectedOption = optionList.querySelector("li:hover") || optionList.firstChild;
-        window.location.href = `result.html?salary=${salary}&option=${selectedOption.dataset.value}`;
-      } else {
-        alert("Please enter a valid salary of at least $1.");
+    conversionTypeSelect.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        convert();
       }
     });
+
+    convertBtn.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        convert();
+      }
+    });
+
+    function convert() {
+      const salary = parseFloat(salaryInput.value);
+      if (isNaN(salary) || salary < 1) {
+        showResult("Please enter a valid salary of at least $1.");
+        return;
+      }
+
+      const conversionType = conversionTypeSelect.value;
+      const prices = {
+        goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
+        uranium: 3.13, superbowl: 533.33, ferrari: 300000, harley: 25000, teepees: 2000,
+        smoke: 50, stradivarius: 11000000, rolex: 10000, xbox: 500, taylor: 5000,
+        paris: 7000, avocados: 2, coffee: 15, ramen: 300, tiger: 50000, spacex: 450000,
+        billboard: 50000, pencils: 0.10, toiletpaper: 1, machu: 2500, curling: 100,
+        wimbledon: 2000, saffron: 5000, paperclips: 0.01, toothpicks: 0.005, jellybeans: 0.02,
+        postit: 0.10, rice: 0.0002, pingpong: 0.25, vampire: 0.75, lego: 0.15,
+        marbles: 0.20, icecream: 5, cassette: 3.30, wax: 10, bulb: 65, silver: 62,
+        ouija: 75, chocolate: 33, beans: 1, gummybears: 0.03, netflix: 0.0139, moon: 0.001
+      };
+
+      if (!prices[conversionType]) {
+        showResult("Error: Conversion type not found!");
+        return;
+      }
+
+      const result = salary / prices[conversionType];
+      const unit = displayNames[conversionType];
+      let finalUnit = unit;
+      if (result < 2 && result > 0) {
+        if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
+        if (unit === "Billboards in Times Square (1 day)") finalUnit = "Billboard in Times Square (1 day)";
+      }
+
+      const emojis = {
+        goldfish: "🐟", flamingos: "🦩", cookies: "🍪", swim: "🏊‍♂️", everest: "🏔️",
+        uranium: "☢️", superbowl: "🏈", ferrari: "🏎️", harley: "🏍️", stradivarius: "🎻",
+        xbox: "🎮", taylor: "🎤", paris: "✈️", avocados: "🥑", coffee: "☕",
+        ramen: "🍜", tiger: "🐅", spacex: "🚀", pencils: "✏️", toiletpaper: "🧻",
+        curling: "🥌", wimbledon: "🎾", paperclips: "📎", rice: "🍚", pingpong: "🏓",
+        cassette: "📼", wax: "🐢", bulb: "💡", chocolate: "🍫", beans: "🥫",
+        gummybears: "🐻", netflix: "📺", moon: "🌕"
+      };
+      const emoji = emojis[conversionType] || "";
+
+      const fractionDigits = result < 1 ? 4 : 2;
+      const funFacts = {
+        goldfish: "Goldfish can live up to 10 years with proper care!",
+        flamingos: "Plastic lawn flamingos were first popularized in the 1950s!",
+        cookies: "Girl Scout Cookies have been sold since 1917 to fund troop activities!",
+        swim: "Iceland’s hot springs are heated by geothermal energy!",
+        everest: "Mount Everest is 29,032 feet high and grows a few millimeters each year!",
+        uranium: "Uranium has been used in nuclear reactors since the 1940s!",
+        superbowl: "A 30-second Super Bowl ad can cost over $5 million!",
+        ferrari: "The Ferrari 296 GTB can go from 0 to 60 mph in under 3 seconds!",
+        harley: "Harley-Davidson was founded in 1903 in Milwaukee, Wisconsin!",
+        teepees: "Teepees were traditionally used by Plains Native Americans!",
+        smoke: "Frozen smoke, or aerogel, is one of the lightest materials on Earth!",
+        stradivarius: "Stradivarius violins are prized for their unmatched sound quality!",
+        rolex: "Rolex Submariner watches are designed for deep-sea diving!",
+        xbox: "The Xbox Series X can deliver up to 120 frames per second!",
+        taylor: "Taylor Swift has sold over 200 million records worldwide!",
+        paris: "First-class flights to Paris often include gourmet dining!",
+        avocados: "Avocados are technically berries and packed with healthy fats!",
+        coffee: "Coffee beans are actually seeds of the coffee plant!",
+        ramen: "Instant noodles were invented in Japan in 1958 by Momofuku Ando!",
+        tiger: "Tigers are the largest wild cats in the world!",
+        spacex: "SpaceX aims to make space travel more affordable with reusable rockets!",
+        billboard: "A Times Square billboard can be seen by millions each day!",
+        pencils: "The modern pencil was invented in the 16th century using graphite!",
+        toiletpaper: "Toilet paper was first mass-produced in the 1850s!",
+        machu: "Machu Picchu was built by the Inca Empire in the 15th century!",
+        curling: "Curling originated in Scotland in the 16th century!",
+        wimbledon: "Wimbledon is the oldest tennis tournament in the world, starting in 1877!",
+        saffron: "Saffron is the most expensive spice, costing up to $5,000 per pound!",
+        paperclips: "Paperclips were patented in 1899 by William Middlebrook!",
+        toothpicks: "Toothpicks have been used since ancient times for dental hygiene!",
+        jellybeans: "Jelly beans were first sold in the U.S. during the Civil War!",
+        postit: "Post-it Notes were invented by accident in 1968 by Spencer Silver!",
+        rice: "Rice has been cultivated for over 5,000 years!",
+        pingpong: "Ping pong, or table tennis, became an Olympic sport in 1988!",
+        vampire: "Plastic vampire teeth are a Halloween staple, dating back to the 1930s!",
+        lego: "LEGO bricks were first produced in 1949 by a Danish company!",
+        marbles: "Marbles have been played with since ancient Egypt, over 3,000 years ago!",
+        icecream: "Premium ice cream often has a higher butterfat content for richness!",
+        cassette: "’80s cassette tapes were the go-to for music before CDs took over!",
+        wax: "Turtle Wax has been a trusted car care brand since 1944!",
+        bulb: "Thomas Edison’s 1915 light bulb design revolutionized home lighting!",
+        silver: "Mason Jars of US Silver Coins",
+        ouija: "Ouija boards were first sold as a parlor game in 1890!",
+        chocolate: "Belgian chocolate is renowned for its smooth texture and quality!",
+        beans: "Van Camp’s Pork and Beans has been a pantry staple since 1861!",
+        gummybears: "Gummy bears were invented by Hans Riegel in Germany in 1922!",
+        netflix: "Netflix started as a DVD rental service in 1997!",
+        moon: "The moon is 238,855 miles from Earth on average!"
+      };
+      const funFact = funFacts[conversionType] || "This item has a fascinating history!";
+      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit} ${emoji}`);
+      funFactDiv.textContent = `Did you know? ${funFact}`;
+    }
+
+    function showResult(message) {
+      resultDiv.textContent = message;
+      resultDiv.classList.remove("show");
+      setTimeout(() => resultDiv.classList.add("show"), 10);
+    }
   </script>
 </body>
 </html>
