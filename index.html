@@ -15,7 +15,7 @@
       min-height: 100vh;
     }
     h1 {
-      color: #1a2a44; /* Darker navy blue */
+      color: #1a2a44;
       font-size: 1.8em;
     }
     p {
@@ -25,12 +25,12 @@
       position: relative;
       display: inline-block;
       width: 100%;
-      max-width: 320px; /* Slightly larger than before */
+      max-width: 320px;
       margin: 8px;
     }
     input {
-      font-size: 1.4em; /* Larger font size */
-      padding: 12px 12px 12px 30px; /* Left padding for dollar sign */
+      font-size: 1.4em;
+      padding: 12px 12px 12px 30px;
       width: 100%;
       box-sizing: border-box;
       border: 1px solid #ccc;
@@ -48,14 +48,14 @@
       transform: translateY(-50%);
       font-size: 1.4em;
       color: #333;
-      pointer-events: none; /* Prevents clicking on the $ */
+      pointer-events: none;
     }
     select {
-      font-size: 1em;
-      padding: 12px;
+      font-size: 1.2em; /* Bigger on mobile */
+      padding: 14px; /* Increased padding */
       margin: 8px;
       width: 100%;
-      max-width: 320px; /* Match input width */
+      max-width: 320px;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -95,41 +95,40 @@
       max-width: 90%;
       margin: 15px auto;
       padding: 12px;
-      background-color: #e8f5e9;
+      background-color: white; /* Removed green background */
       border-left: 5px solid #2e7d32;
-      display: flex;
-      align-items: flex-start;
+      text-align: left; /* Left-aligned for flow */
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     #funFactLabel {
+      display: inline; /* Inline for sentence flow */
       background-color: #ffffff;
       color: #2e7d32;
-      padding: 5px 10px;
-      border-radius: 5px;
+      padding: 2px 6px; /* Reduced padding for less bulk */
+      border-radius: 3px;
       font-size: 1.2em;
       font-weight: bold;
-      margin-right: 10px;
-      white-space: nowrap;
-      line-height: 1.2;
       text-transform: uppercase;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       background-image: linear-gradient(to right, #f9f9f9, #ffffff);
+      margin-right: 5px; /* Space before fact */
     }
     #funFact {
       font-size: 1.4em;
       color: #333;
-      flex: 1;
       line-height: 1.4;
+      display: inline; /* Inline for sentence flow */
     }
 
     /* Tablet Adjustments */
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
       .input-container, select { max-width: 400px; }
-      input, select { font-size: 1.6em; padding: 15px; padding-left: 35px; /* Adjust for $ */ }
+      input { font-size: 1.6em; padding: 15px 15px 15px 35px; }
       .dollar-sign { font-size: 1.6em; left: 12px; }
+      select { font-size: 1.4em; padding: 15px; }
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -141,7 +140,7 @@
       body { margin: 20px; }
       h1 { font-size: 3em; }
       .input-container, select { max-width: 500px; }
-      input, select { padding-left: 40px; /* Adjust for $ */ }
+      input { padding-left: 40px; }
       .dollar-sign { left: 15px; }
       #result, #funFactContainer { max-width: 800px; }
     }
@@ -155,7 +154,7 @@
     <input type="text" id="salaryInput" placeholder="e.g. 50,000" aria-label="Annual salary in dollars">
   </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
-    <option value="">Select an option</option>
+    <option value="">Pick a Quirky Conversion</option>
     <option value="goldfish">Goldfish 🐟</option>
     <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
     <option value="cookies">Girl Scout Cookies 🍪</option>
@@ -202,7 +201,7 @@
     <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
     <option value="beans">Cans of Van Camp’s Pork and Beans 🥫</option>
     <option value="gummybears">Gummy Bears</option>
-    <option value="netflix">Hours of Netflix Streaming 📺</option>
+    <option value="netflix">Hours of Netflix Streaming</option> <!-- Removed emoji -->
     <option value="moon">Square Feet of Moon Real Estate</option>
   </select>
   <div id="result" aria-live="polite"></div>
@@ -282,17 +281,16 @@
 
     conversionTypeSelect.addEventListener("change", convert);
 
-    // Add commas to salary input as user types
     salaryInput.addEventListener("input", function() {
-      let value = this.value.replace(/[^0-9]/g, ""); // Remove non-digits
+      let value = this.value.replace(/[^0-9]/g, "");
       if (value) {
-        value = parseInt(value).toLocaleString("en-US"); // Add commas
+        value = parseInt(value).toLocaleString("en-US");
         this.value = value;
       }
     });
 
     function convert() {
-      const salary = parseFloat(salaryInput.value.replace(/,/g, "")); // Remove commas for calculation
+      const salary = parseFloat(salaryInput.value.replace(/,/g, ""));
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.", true);
         funFactDiv.textContent = "";
