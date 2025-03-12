@@ -37,12 +37,8 @@
       margin: 0 auto;
       line-height: 1.6;
       font-weight: bold;
-      padding: 15px;
-      background-color: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border-left: 5px solid #32CD32;
-      white-space: nowrap;
-      overflow-x: auto;
+      padding: 10px;
+      padding-left: 20px;
       opacity: 0;
       transition: opacity 0.5s ease-in;
     }
@@ -57,14 +53,9 @@
       border-left: 5px solid #32CD32;
       color: #333;
     }
-    select {
-      background-color: white;
-      border: 2px solid #32CD32;
-    }
     @media (max-width: 600px) {
-      #result, #funFact, select {
+      #result, #funFact {
         max-width: 100%;
-        box-sizing: border-box;
       }
     }
   </style>
@@ -136,20 +127,6 @@
 
     convertBtn.addEventListener("click", convert);
 
-    conversionTypeSelect.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        convert();
-      }
-    });
-
-    convertBtn.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        convert();
-      }
-    });
-
     function convert() {
       const salary = parseFloat(salaryInput.value);
       if (isNaN(salary) || salary < 1) {
@@ -176,7 +153,7 @@
       }
 
       const result = salary / prices[conversionType];
-      const unit = displayNames[conversionType];
+      const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text.replace(/ [^\s]*$/, "");
       let finalUnit = unit;
       if (result < 2 && result > 0) {
         if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
@@ -237,7 +214,7 @@
         cassette: "’80s cassette tapes were the go-to for music before CDs took over!",
         wax: "Turtle Wax has been a trusted car care brand since 1944!",
         bulb: "Thomas Edison’s 1915 light bulb design revolutionized home lighting!",
-        silver: "Mason Jars of US Silver Coins",
+        silver: "US silver coins were widely circulated before 1965!",
         ouija: "Ouija boards were first sold as a parlor game in 1890!",
         chocolate: "Belgian chocolate is renowned for its smooth texture and quality!",
         beans: "Van Camp’s Pork and Beans has been a pantry staple since 1861!",
