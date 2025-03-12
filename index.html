@@ -21,30 +21,59 @@
     p {
       font-size: 1em;
     }
-    input, select {
-      font-size: 1em;
-      padding: 12px;
-      margin: 8px; /* Slightly increased for better spacing */
+    .input-container {
+      position: relative;
+      display: inline-block;
       width: 100%;
-      max-width: 300px;
+      max-width: 320px; /* Slightly larger than before */
+      margin: 8px;
+    }
+    input {
+      font-size: 1.4em; /* Larger font size */
+      padding: 12px 12px 12px 30px; /* Left padding for dollar sign */
+      width: 100%;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
-      transition: border-color 0.3s ease; /* Hover effect */
+      transition: border-color 0.3s ease;
     }
-    input:focus, select:focus {
-      border-color: #2e7d32; /* Darker green on focus */
+    input:focus {
+      border-color: #2e7d32;
+      outline: none;
+    }
+    .dollar-sign {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.4em;
+      color: #333;
+      pointer-events: none; /* Prevents clicking on the $ */
+    }
+    select {
+      font-size: 1em;
+      padding: 12px;
+      margin: 8px;
+      width: 100%;
+      max-width: 320px; /* Match input width */
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
+    select:focus {
+      border-color: #2e7d32;
       outline: none;
     }
     select:hover {
-      border-color: #1a2a44; /* Navy blue on hover */
+      border-color: #1a2a44;
     }
     #result {
       font-size: 1.6em;
       margin-top: 20px;
       text-align: left;
       max-width: 90%;
-      margin: 20px auto; /* Adjusted spacing */
+      margin: 20px auto;
       padding: 15px;
       background-color: white;
       border-left: 5px solid #2e7d32;
@@ -52,20 +81,15 @@
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       opacity: 0;
-      transition: opacity 0.3s ease; /* Fade-in animation */
+      transition: opacity 0.3s ease;
     }
     #result.show {
       opacity: 1;
     }
     #result.error {
-      color: #d32f2f; /* Red for errors */
+      color: #d32f2f;
       border-left: 5px solid #d32f2f;
-      background-color: #ffebee; /* Light red background */
-    }
-    #result.loading::after {
-      content: "Calculating...";
-      font-style: italic;
-      color: #666;
+      background-color: #ffebee;
     }
     #funFactContainer {
       max-width: 90%;
@@ -103,7 +127,9 @@
     /* Tablet Adjustments */
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
-      input, select { font-size: 1.2em; padding: 15px; max-width: 400px; }
+      .input-container, select { max-width: 400px; }
+      input, select { font-size: 1.6em; padding: 15px; padding-left: 35px; /* Adjust for $ */ }
+      .dollar-sign { font-size: 1.6em; left: 12px; }
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -114,7 +140,9 @@
     @media (min-width: 1024px) {
       body { margin: 20px; }
       h1 { font-size: 3em; }
-      input, select { max-width: 500px; }
+      .input-container, select { max-width: 500px; }
+      input, select { padding-left: 40px; /* Adjust for $ */ }
+      .dollar-sign { left: 15px; }
       #result, #funFactContainer { max-width: 800px; }
     }
   </style>
@@ -122,7 +150,10 @@
 <body>
   <h1>Weird Salary Converter</h1>
   <p>Enter your annual salary (in dollars):</p>
-  <input type="number" id="salaryInput" placeholder="e.g. 50000" aria-label="Annual salary in dollars">
+  <div class="input-container">
+    <span class="dollar-sign">$</span>
+    <input type="text" id="salaryInput" placeholder="e.g. 50,000" aria-label="Annual salary in dollars">
+  </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
     <option value="">Select an option</option>
     <option value="goldfish">Goldfish 🐟</option>
@@ -186,7 +217,6 @@
     const resultDiv = document.getElementById("result");
     const funFactDiv = document.getElementById("funFact");
 
-    // Constants for minified performance (not strictly necessary now, but good practice)
     const PRICES = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
       uranium: 3.13, superbowl: 533.33, ferrari: 300000, harley: 25000, teepees: 2000,
@@ -252,8 +282,17 @@
 
     conversionTypeSelect.addEventListener("change", convert);
 
+    // Add commas to salary input as user types
+    salaryInput.addEventListener("input", function() {
+      let value = this.value.replace(/[^0-9]/g, ""); // Remove non-digits
+      if (value) {
+        value = parseInt(value).toLocaleString("en-US"); // Add commas
+        this.value = value;
+      }
+    });
+
     function convert() {
-      const salary = parseFloat(salaryInput.value);
+      const salary = parseFloat(salaryInput.value.replace(/,/g, "")); // Remove commas for calculation
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.", true);
         funFactDiv.textContent = "";
@@ -267,22 +306,18 @@
         return;
       }
 
-      resultDiv.classList.add("loading");
-      setTimeout(() => {
-        resultDiv.classList.remove("loading");
-        const result = salary / PRICES[conversionType];
-        const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
-        let finalUnit = unit;
-        if (result < 2 && result > 0) {
-          if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
-          if (unit === "Billboards in Times Square for One Day") finalUnit = "Billboard in Times Square for One Day";
-        }
+      const result = salary / PRICES[conversionType];
+      const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
+      let finalUnit = unit;
+      if (result < 2 && result > 0) {
+        if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
+        if (unit === "Billboards in Times Square for One Day") finalUnit = "Billboard in Times Square for One Day";
+      }
 
-        const fractionDigits = result < 1 ? 4 : 2;
-        const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
-        showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`, false);
-        funFactDiv.textContent = funFact;
-      }, 300); // Simulated delay for loading effect
+      const fractionDigits = result < 1 ? 4 : 2;
+      const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
+      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`, false);
+      funFactDiv.textContent = funFact;
     }
 
     function showResult(message, isError = false) {
