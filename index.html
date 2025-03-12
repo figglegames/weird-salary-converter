@@ -6,7 +6,6 @@
   <title>Weird Salary Converter</title>
   <meta name="description" content="Convert your salary into quirky equivalents!">
   <style>
-    /* Mobile-first design */
     body {
       font-family: Arial, sans-serif;
       margin: 10px;
@@ -92,8 +91,8 @@
       background-color: #ffebee;
     }
     #result .number {
-      color: #388e3c; /* Slightly brighter medium-dark green */
-      margin-left: 2px; /* Reduced gap after approx. */
+      color: #388e3c;
+      margin-left: 2px;
     }
     #funFactContainer {
       max-width: 90%;
@@ -125,8 +124,6 @@
       line-height: 1.4;
       display: inline;
     }
-
-    /* Tablet Adjustments */
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
       .input-container, select { max-width: 400px; }
@@ -138,8 +135,6 @@
       #funFact { font-size: 1.6em; }
       #funFactContainer { max-width: 600px; }
     }
-
-    /* Laptop Adjustments */
     @media (min-width: 1024px) {
       body { margin: 20px; }
       h1 { font-size: 3em; }
@@ -280,9 +275,7 @@
       beans: "Van Camp’s Pork and Beans was once sold in glass jars.",
       gummybears: "Gummy bears were initially called 'Dancing Bears'.",
       netflix: "Netflix was originally called 'Kibble'.",
-      moon: "The moon “
-
-’s surface is constantly shifting."
+      moon: "The moon’s surface is constantly shifting."
     };
 
     conversionTypeSelect.addEventListener("change", convert);
@@ -298,14 +291,14 @@
     function convert() {
       const salary = parseFloat(salaryInput.value.replace(/,/g, ""));
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
-        showResult("Please enter a valid salary between $1 and $1 billion.", true);
+        showResult("Please enter a valid salary between $1 and $1 billion.");
         funFactDiv.textContent = "";
         return;
       }
 
       const conversionType = conversionTypeSelect.value;
       if (!conversionType) {
-        showResult("", false);
+        resultDiv.textContent = "";
         funFactDiv.textContent = "";
         return;
       }
@@ -313,42 +306,24 @@
       const result = salary / PRICES[conversionType];
       const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
       let finalUnit = unit;
-      let resultText;
 
-      // Special handling for "One-Year Supplies" and specific pluralization
-      if (conversionType === "ramen" || conversionType === "wax") {
-        finalUnit = conversionType === "ramen" ? "instant noodles" : "Turtle Wax";
-        resultText = `You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years of ${finalUnit}.`;
-      } else {
-        // Handle pluralization for "Pet Tigers" and "Billboards in Times Square for One Day"
-        if (conversionType === "tiger") {
-          finalUnit = result <= 1 ? "pet tiger" : "pet tigers";
-        } else if (conversionType === "billboard") {
-          finalUnit = result <= 1 ? "billboard in Times Square for one day" : "billboards in Times Square for one day";
-        } else if (result < 2 && result > 0 && unit === "Billboards in Times Square for One Day") {
-          finalUnit = "billboard in Times Square for one day"; // Edge case for < 2
-        }
-
-        const fractionDigits = result < 1 ? 4 : 2;
-        const properNouns = [
-          "Super Bowl", "Ferrari 296 GTB", "Harley Davidson", "Stradivarius", "Rolex Submariner",
-          "Xbox Series X", "Taylor Swift", "SpaceX", "Times Square", "Machu Picchu", "Wimbledon",
-          "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans"
-        ];
-        finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
-
-        resultText = `You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
+      if (conversionType === "tiger") {
+        finalUnit = result <= 1 ? "pet tiger" : "pet tigers";
+      } else if (conversionType === "billboard") {
+        finalUnit = result <= 1 ? "billboard in Times Square for one day" : "billboards in Times Square for one day";
+      } else if (result < 2 && result > 0) {
+        if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
       }
 
-      const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history.";
-      showResult(resultText, false);
-      funFactDiv.textContent = funFact;
+      const fractionDigits = result < 1 ? 4 : 2;
+      const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
+      showResult(`You could buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}`);
+      funFactDiv.textContent = `${funFact}`;
     }
 
-    function showResult(message, isError = false) {
-      resultDiv.innerHTML = message; // Use innerHTML to render the <span>
-      resultDiv.classList.remove("show", "error");
-      if (isError) resultDiv.classList.add("error");
+    function showResult(message) {
+      resultDiv.innerHTML = message;
+      resultDiv.classList.remove("show");
       setTimeout(() => resultDiv.classList.add("show"), 10);
     }
   </script>
