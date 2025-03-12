@@ -99,7 +99,7 @@
       margin: 15px auto;
       padding: 12px;
       background-color: white;
-      border-left: 5px solid #ffeb3b; /* Default yellow, will be overridden by JS */
+      border-left: 5px solid #ffeb3b; /* Default yellow, overridden by JS */
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -279,16 +279,13 @@
       moon: "The moon’s surface is constantly shifting."
     };
 
-    // Array of 6 bright, sporty colors for fun fact border rotation
     const FUN_FACT_COLORS = [
       "#ffeb3b", // Yellow
       "#f44336", // Red
-      "#2196f3", // Blue
-      "#ff9800", // Orange
-      "#4caf50", // Green
-      "#e91e63"  // Pink
+      "#64b5f6", // Medium-light blue
+      "#00e676"  // Bright green
     ];
-    let colorIndex = 0; // Track the current color
+    let colorIndex = 0;
 
     conversionTypeSelect.addEventListener("change", convert);
 
@@ -328,11 +325,20 @@
       }
 
       const fractionDigits = result < 1 ? 4 : 2;
+
+      // Handle proper nouns in result sentence
+      const properNouns = [
+        "Super Bowl", "Ferrari 296 GTB", "Harley Davidson", "Stradivarius", "Rolex Submariner",
+        "Xbox Series X", "Taylor Swift", "SpaceX", "Times Square", "Machu Picchu", "Wimbledon",
+        "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans"
+      ];
+      finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
+
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
       // Rotate fun fact border color
       funFactContainer.style.borderLeftColor = FUN_FACT_COLORS[colorIndex];
-      colorIndex = (colorIndex + 1) % FUN_FACT_COLORS.length; // Cycle through colors
+      colorIndex = (colorIndex + 1) % FUN_FACT_COLORS.length;
 
       showResult(`You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}`);
       funFactDiv.textContent = `${funFact}`;
