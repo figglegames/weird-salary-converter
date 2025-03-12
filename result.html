@@ -80,13 +80,6 @@
     const salary = parseFloat(urlParams.get("salary"));
     const option = urlParams.get("option");
 
-    if (isNaN(salary) || !option || salary < 1) {
-      resultDiv.textContent = "Error: Invalid salary or option. Please try again.";
-      resultDiv.classList.add("show");
-      funFactDiv.textContent = "Please go back and select a valid option.";
-      return;
-    }
-
     const prices = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
       uranium: 3.13, superbowl: 533.33, ferrari: 300000, harley: 25000, teepees: 2000,
@@ -208,15 +201,15 @@
       moon: "The moon is 238,855 miles from Earth on average!"
     };
 
-    if (!prices[option]) {
-      resultDiv.textContent = "Error: Invalid option selected. Please try again.";
+    if (!salary || !option || !prices[option]) {
+      resultDiv.textContent = "Error: Invalid salary or option. Please try again.";
       resultDiv.classList.add("show");
       funFactDiv.textContent = "Please go back and select a valid option.";
       return;
     }
 
     const result = salary / prices[option];
-    if (isNaN(result) || result <= 0) {
+    if (!result || result <= 0) {
       resultDiv.textContent = "Error: Unable to calculate result. Please try again.";
       resultDiv.classList.add("show");
       funFactDiv.textContent = "Please go back and select a valid option.";
