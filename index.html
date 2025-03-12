@@ -17,8 +17,10 @@
       color: #1a2a44;
       font-size: 1.8em;
     }
-    p {
-      font-size: 1em;
+    p.salary-label {
+      font-size: 2em; /* Much bigger font */
+      white-space: nowrap; /* Keeps it on one line */
+      margin: 10px 0;
     }
     .input-container {
       position: relative;
@@ -50,7 +52,7 @@
       pointer-events: none;
     }
     select {
-      font-size: 1.2em;
+      font-size: 2em; /* Much bigger font */
       padding: 14px;
       margin: 8px;
       width: 100%;
@@ -59,6 +61,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       transition: border-color 0.3s ease;
+      text-align: center; /* Keep centered unless it wraps */
     }
     select:focus {
       border-color: #2e7d32;
@@ -99,7 +102,7 @@
       margin: 15px auto;
       padding: 12px;
       background-color: white;
-      border-left: 5px solid #ffeb3b; /* Default yellow, overridden by JS */
+      border-left: 5px solid #ffeb3b;
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -126,10 +129,11 @@
     }
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
+      p.salary-label { font-size: 2.5em; } /* Scale up */
       .input-container, select { max-width: 400px; }
       input { font-size: 1.6em; padding: 15px 15px 15px 35px; }
       .dollar-sign { font-size: 1.6em; left: 12px; }
-      select { font-size: 1.4em; padding: 15px; }
+      select { font-size: 2.5em; padding: 15px; } /* Scale up */
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -138,22 +142,24 @@
     @media (min-width: 1024px) {
       body { margin: 20px; }
       h1 { font-size: 3em; }
+      p.salary-label { font-size: 3em; } /* Scale up */
       .input-container, select { max-width: 500px; }
       input { padding-left: 40px; }
       .dollar-sign { left: 15px; }
+      select { font-size: 3em; padding: 15px; } /* Scale up */
       #result, #funFactContainer { max-width: 800px; }
     }
   </style>
 </head>
 <body>
   <h1>Weird Salary Converter</h1>
-  <p>Enter your annual salary (in dollars):</p>
+  <p class="salary-label">Enter your annual salary (in dollars):</p>
   <div class="input-container">
     <span class="dollar-sign">$</span>
     <input type="text" id="salaryInput" placeholder="e.g. 50,000" aria-label="Annual salary in dollars">
   </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
-    <option value="">Pick a Quirky Conversion</option>
+    <option value="">Choose a Quirky Conversion</option>
     <option value="goldfish">Goldfish 🐟</option>
     <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
     <option value="cookies">Girl Scout Cookies 🍪</option>
@@ -317,7 +323,6 @@
       let finalUnit = unit;
       let resultText;
 
-      // Special handling for "One-Year Supplies"
       if (conversionType === "ramen" || conversionType === "wax") {
         finalUnit = conversionType === "ramen" ? "instant noodles" : "Turtle Wax";
         resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years worth of ${finalUnit}`;
