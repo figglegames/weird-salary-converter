@@ -53,8 +53,8 @@
       overflow-wrap: break-word; /* Modern alternative for wrap */
     }
     #funFactLabel {
-      background-color: #32CD32; /* Green to match your image */
-      color: white;
+      background-color: #ffffff; /* White background */
+      color: #32CD32; /* Green text */
       padding: 5px 10px;
       border-radius: 5px;
       font-size: 1.2em;
@@ -63,6 +63,8 @@
       white-space: nowrap;
       line-height: 1.2; /* Adjust for better alignment */
       text-transform: uppercase; /* Match the uppercase style */
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      background-image: linear-gradient(to right, #f9f9f9, #ffffff); /* Paper-like texture */
     }
     #funFact {
       font-size: 1.4em; /* Increased font size */
@@ -203,63 +205,4 @@
       const funFacts = {
         goldfish: "Goldfish can live up to 10 years with proper care",
         flamingos: "Plastic lawn flamingos were first popularized in the 1950s",
-        cookies: "Girl Scout Cookies have been sold since 1917 to fund troop activities",
-        swim: "Iceland’s hot springs are heated by geothermal energy",
-        everest: "Mount Everest is 29,032 feet high and grows a few millimeters each year",
-        uranium: "Small nuclear reactors use 1-10 metric tons of uranium",
-        superbowl: "A 30-second Super Bowl ad can cost over $5 million",
-        ferrari: "The Ferrari 296 GTB can go from 0 to 60 mph in under 3 seconds",
-        harley: "The 'potato-potato' sound is a nickname for the distinctive rumble of a Harley-Davidson engine at idle",
-        teepees: "Teepees were designed by the Plains Indians to be taken down and packed up in under an hour",
-        smoke: "Frozen smoke, or aerogel, is one of the lightest materials on Earth",
-        stradivarius: "The most expensive Stradivarius ever sold is the 'Da Vinci' Stradivarius (1714), which went for $15.3 million in 2022",
-        rolex: "The Rolex Submariner was James Bond’s watch, worn by Sean Connery in Dr. No (1962)",
-        xbox: "The Xbox Series X controller still uses AA batteries",
-        taylor: "Taylor Swift’s VIP tickets sell out instantly",
-        paris: "On select airlines, first-class seats to Paris include a shower spa",
-        avocados: "Avocados are technically berries and are packed with healthy fats",
-        coffee: "Coffee beans are actually seeds of the coffee plant",
-        ramen: "In space, astronauts eat specially made zero-gravity instant noodles that don’t need boiling water",
-        tiger: "A pet tiger’s roar can be heard up to 2 miles away, which might not make you popular with the neighbors",
-        spacex: "SpaceX missions offer zero-gravity flips, insane views, and no in-flight peanuts",
-        billboard: "A Times Square billboard can be seen by millions each day",
-        pencils: "A single pencil can write about 45,000 words or draw a line 35 miles long",
-        toiletpaper: "Americans use more toilet paper than any other country, averaging 57 sheets per day",
-        machu: "Parts of Machu Picchu are sinking at a rate of half an inch per year",
-        curling: "Curling stones are made from a specific type of granite found only on Ailsa Craig, a tiny island in Scotland",
-        wimbledon: "Wimbledon balls are kept at exactly 68°F, and over 54,000 are used throughout the tournament",
-        saffron: "Saffron is the most expensive spice in the world. It takes about 75,000 saffron flowers to produce just one pound of saffron",
-        paperclips: "Kyle MacDonald famously traded a single red paperclip all the way up to a house in 2006",
-        toothpicks: "Mark Twain hated loud toothpick users",
-        jellybeans: "Jelly beans were first sold in the U.S. during the Civil War",
-        postit: "Post-it Notes were invented by accident in 1968 by Spencer Silver",
-        rice: "There are over 40,000 varieties of rice",
-        pingpong: "Ping pong was originally called 'whiff-whaff', because of the sound the ball made when hit",
-        vampire: "Plastic vampire teeth guarantee you’ll spit on at least one person while talking",
-        lego: "If you stacked 40 billion LEGO bricks, they would reach all the way to the moon",
-        marbles: "Marbles have been played with since ancient Egypt, over 3,000 years ago",
-        icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying",
-        cassette: "Cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side",
-        wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere",
-        bulb: "Thomas Edison didn’t invent the light bulb, but he perfected it by making it last longer and be practical for daily use",
-        silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed",
-        ouija: "‘Ouija’ is a combination of the French and German words for 'yes', 'oui' and 'ja'",
-        chocolate: "Belgium produces over 170,000 tons of chocolate annually",
-        beans: "Van Camp’s Pork and Beans was once sold in glass jars",
-        gummybears: "Gummy bears were initially called 'Dancing Bears'",
-        netflix: "Netflix was originally called 'Kibble'",
-        moon: "The moon’s surface is constantly shifting"
-      };
-      const funFact = funFacts[conversionType] || "This item has a fascinating history";
-      showResult(`You could buy ${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })} ${finalUnit}`);
-      funFactDiv.textContent = `${funFact}`;
-    }
-
-    function showResult(message) {
-      resultDiv.textContent = message;
-      resultDiv.classList.remove("show");
-      setTimeout(() => resultDiv.classList.add("show"), 10);
-    }
-  </script>
-</body>
-</html>
+        cookies: "Girl Scout Cookies have been sold since 1917 t
