@@ -18,16 +18,17 @@
       font-size: 1.8em;
     }
     p.salary-label {
-      font-size: 2em; /* Much bigger font */
-      white-space: nowrap; /* Keeps it on one line */
+      font-size: 1.2em; /* Smaller, fits mobile */
+      text-align: left; /* Justified left */
       margin: 10px 0;
+      white-space: nowrap; /* Still one line */
     }
     .input-container {
       position: relative;
       display: inline-block;
       width: 100%;
       max-width: 320px;
-      margin: 8px;
+      margin: 8px auto; /* Keep centered */
     }
     input {
       font-size: 1.4em;
@@ -52,7 +53,7 @@
       pointer-events: none;
     }
     select {
-      font-size: 2em; /* Much bigger font */
+      font-size: 1.2em; /* Smaller, fits mobile */
       padding: 14px;
       margin: 8px;
       width: 100%;
@@ -61,7 +62,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       transition: border-color 0.3s ease;
-      text-align: center; /* Keep centered unless it wraps */
+      text-align: left; /* Justified left */
     }
     select:focus {
       border-color: #2e7d32;
@@ -129,11 +130,11 @@
     }
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
-      p.salary-label { font-size: 2.5em; } /* Scale up */
+      p.salary-label { font-size: 1.5em; } /* Scale up */
       .input-container, select { max-width: 400px; }
       input { font-size: 1.6em; padding: 15px 15px 15px 35px; }
       .dollar-sign { font-size: 1.6em; left: 12px; }
-      select { font-size: 2.5em; padding: 15px; } /* Scale up */
+      select { font-size: 1.5em; padding: 15px; } /* Scale up */
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -142,11 +143,11 @@
     @media (min-width: 1024px) {
       body { margin: 20px; }
       h1 { font-size: 3em; }
-      p.salary-label { font-size: 3em; } /* Scale up */
+      p.salary-label { font-size: 1.8em; } /* Scale up */
       .input-container, select { max-width: 500px; }
       input { padding-left: 40px; }
       .dollar-sign { left: 15px; }
-      select { font-size: 3em; padding: 15px; } /* Scale up */
+      select { font-size: 1.8em; padding: 15px; } /* Scale up */
       #result, #funFactContainer { max-width: 800px; }
     }
   </style>
@@ -325,7 +326,7 @@
 
       if (conversionType === "ramen" || conversionType === "wax") {
         finalUnit = conversionType === "ramen" ? "instant noodles" : "Turtle Wax";
-        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years worth of ${finalUnit}`;
+        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years worth of ${finalUnit}.`;
       } else {
         if (conversionType === "tiger") {
           finalUnit = result <= 1 ? "pet tiger" : "pet tigers";
@@ -343,7 +344,7 @@
         ];
         finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
 
-        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}`;
+        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
       }
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
