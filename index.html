@@ -207,7 +207,7 @@
     <option value="icecream">Gallons of Premium Ice Cream</option>
     <option value="cassette">Vintage Cassette Tapes 📼</option>
     <option value="wax">Turtle Wax 🐢</option>
-    <option value="bulb">Thomas Edison Lightbulb</option>
+    <option value="bulb">Original Thomas Edison Lightbulb</option> <!-- CHANGED: Added "Original" -->
     <option value="silver">Mason Jars of US Silver Coins</option>
     <option value="ouija">Ouija Boards</option>
     <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
@@ -231,7 +231,7 @@
 
     const PRICES = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
-      uranium: 3.13, superbowl: 266666.67, ferrari: 300000, harley: 25000, teepees: 2000, // CHANGED: Updated superbowl to $266,666.67 per second
+      uranium: 3.13, superbowl: 266666.67, ferrari: 300000, harley: 25000, teepees: 2000,
       smoke: 50, stradivarius: 11000000, rolex: 10000, xbox: 500, taylor: 5000,
       paris: 7000, avocados: 2, coffee: 15, ramen: 300, tiger: 50000, spacex: 450000,
       billboard: 50000, pencils: 0.10, toiletpaper: 1, machu: 2500, curling: 100,
@@ -282,7 +282,7 @@
       icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying.",
       cassette: "Vintage cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side.",
       wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere.",
-      bulb: "Thomas Edison didn’t invent the light bulb, but he perfected it by making it last longer and be practical for daily use.",
+      bulb: "Thomas Edison didn’t invent the lightbulb, but he perfected it by making it last longer and be practical for daily use.", // CHANGED: "light bulb" to "lightbulb"
       silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed.",
       ouija: "‘Ouija’ is a combination of the French and German words for 'yes', 'oui' and 'ja'.",
       chocolate: "Belgium produces over 170,000 tons of chocolate annually.",
@@ -340,7 +340,7 @@
         return;
       }
 
-      const result = conversionType === "superbowl" ? salary / PRICES[conversionType] : conversionType === "superbowl" ? salary / (PRICES[conversionType] / 1000) : salary / PRICES[conversionType]; // CHANGED: Adjusted for seconds
+      const result = conversionType === "superbowl" ? salary / PRICES[conversionType] : salary / PRICES[conversionType];
       console.log("Result calculated:", result);
       const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
       let finalUnit = unit;
@@ -353,8 +353,8 @@
         finalUnit = "minutes on top of Mount Everest";
         resultText = `You can buy approx. <span class="number">${Math.round(result).toLocaleString()}</span> ${finalUnit}.`;
       } else if (conversionType === "superbowl") {
-        finalUnit = "seconds of a Super Bowl commercial"; // CHANGED: Display in seconds
-        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> ${finalUnit}.`; // CHANGED: Formatted to 2 decimals
+        finalUnit = "seconds of a Super Bowl commercial";
+        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> ${finalUnit}.`;
       } else if (conversionType === "swim") {
         finalUnit = "minutes of swimming in Iceland";
         resultText = `You can buy approx. <span class="number">${Math.round(result).toLocaleString()}</span> ${finalUnit}.`;
@@ -365,7 +365,7 @@
         finalUnit = result <= 1 ? "billboard in Times Square for one day" : "billboards in Times Square for one day";
         resultText = `You can buy approx. <span class="number">${result.toLocaleString()}</span> ${finalUnit}.`;
       } else if (conversionType === "bulb") {
-        finalUnit = Math.round(result) <= 1 ? "Thomas Edison lightbulb" : "Thomas Edison lightbulbs"; // CHANGED: Added plural logic
+        finalUnit = Math.round(result) <= 1 ? "original Thomas Edison lightbulb" : "original Thomas Edison lightbulbs"; // CHANGED: Added "original" and plural logic
         resultText = `You can buy approx. <span class="number">${Math.round(result).toLocaleString()}</span> ${finalUnit}.`;
       } else {
         if (conversionType === "tiger") {
