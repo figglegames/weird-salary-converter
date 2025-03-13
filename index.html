@@ -109,6 +109,8 @@
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* NEW: Hide fun fact container by default */
+      display: none;
     }
     #funFactLabel {
       display: inline;
@@ -162,7 +164,7 @@
   </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
     <option value="">Choose a Quirky Conversion</option>
-    <option value="goldfish">Goldfish 🐟</option>
+    <option value="goldfish">Goldfish</option> <!-- CHANGED: Removed 🐟 emoji -->
     <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
     <option value="cookies">Girl Scout Cookies 🍪</option>
     <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
@@ -321,6 +323,7 @@
       console.log("Salary parsed:", salary);
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.");
+        funFactContainer.style.display = "none"; // Hide fun fact if salary is invalid
         funFactDiv.textContent = "";
         return;
       }
@@ -329,6 +332,7 @@
       console.log("Conversion type:", conversionType);
       if (!conversionType) {
         resultDiv.textContent = "";
+        funFactContainer.style.display = "none"; // Hide fun fact if no conversion selected
         funFactDiv.textContent = "";
         return;
       }
@@ -382,6 +386,8 @@
         resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
       }
 
+      // Show fun fact container only if both salary and conversion are valid
+      funFactContainer.style.display = "block";
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
       resultDiv.style.borderLeftColor = RESULT_COLORS[resultColorIndex];
