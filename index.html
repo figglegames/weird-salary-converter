@@ -167,13 +167,13 @@
   </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
     <option value="">Choose a Quirky Conversion</option>
-    <option value="goldfish">Goldfish</option> <!-- NO EMOJI: Per your request -->
+    <option value="goldfish">Goldfish</option>
     <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
     <option value="cookies">Girl Scout Cookies 🍪</option>
-    <option value="swim">Swimming in Iceland</option> <!-- CHANGED: Shortened, NO EMOJI -->
-    <option value="everest">Time on top of Mt. Everest</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="swim">Swimming in Iceland</option>
+    <option value="everest">Time on top of Mt. Everest</option>
     <option value="uranium">Ounces of Uranium ☢️</option>
-    <option value="superbowl">Super Bowl Commercial</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="superbowl">Super Bowl Commercial</option>
     <option value="ferrari">Ferrari 296 GTB 🏎️</option>
     <option value="harley">Harley Davidson Motorcycles 🏍️</option>
     <option value="teepees">Teepees</option>
@@ -185,10 +185,10 @@
     <option value="paris">First Class Flights to Paris ✈️</option>
     <option value="avocados">Avocados 🥑</option>
     <option value="coffee">Bags of Coffee Beans</option>
-    <option value="ramen">Instant Noodles</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="ramen">Instant Noodles</option>
     <option value="tiger">Pet Tigers 🐅</option>
     <option value="spacex">SpaceX Tickets to Orbit 🚀</option>
-    <option value="billboard">Times Square Billboard</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="billboard">Times Square Billboard</option>
     <option value="pencils">Pencils ✏️</option>
     <option value="toiletpaper">Rolls of Toilet Paper 🧻</option>
     <option value="machu">Trips to Machu Picchu</option>
@@ -206,12 +206,12 @@
     <option value="marbles">Marbles</option>
     <option value="icecream">Gallons of Premium Ice Cream</option>
     <option value="cassette">Vintage Cassette Tapes 📼</option>
-    <option value="wax">Turtle Wax 🐢</option> <!-- CHANGED: Shortened, ADDED EMOJI per your request -->
-    <option value="bulb">Thomas Edison Lightbulb</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="wax">Turtle Wax 🐢</option>
+    <option value="bulb">Thomas Edison Lightbulb</option>
     <option value="silver">Mason Jars of US Silver Coins</option>
     <option value="ouija">Ouija Boards</option>
     <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
-    <option value="beans">Pork and Beans</option> <!-- CHANGED: Shortened, NO EMOJI -->
+    <option value="beans">Pork and Beans</option>
     <option value="gummybears">Gummy Bears</option>
     <option value="netflix">Hours of Netflix Streaming</option>
     <option value="moon">Square Feet of Moon Real Estate</option>
@@ -340,15 +340,27 @@
         return;
       }
 
-      const result = salary / PRICES[conversionType];
+      const result = conversionType === "superbowl" ? salary * PRICES[conversionType] : salary / PRICES[conversionType];
       console.log("Result calculated:", result);
       const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
       let finalUnit = unit;
       let resultText;
 
       if (conversionType === "ramen" || conversionType === "wax") {
-        finalUnit = conversionType === "ramen" ? "One-Year Supplies of Instant Noodles" : "One-Year Supplies of Turtle Wax";
+        finalUnit = conversionType === "ramen" ? "Instant Noodles" : "Turtle Wax";
         resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> years worth of ${finalUnit}.`;
+      } else if (conversionType === "everest") {
+        finalUnit = "minutes on top of Mount Everest";
+        resultText = `You can buy approx. <span class="number">${Math.round(result)}</span> ${finalUnit}.`;
+      } else if (conversionType === "superbowl") {
+        finalUnit = "milliseconds of a Super Bowl commercial";
+        resultText = `You can buy approx. <span class="number">${Math.round(result)}</span> ${finalUnit}.`;
+      } else if (conversionType === "swim") {
+        finalUnit = "minutes of swimming in Iceland";
+        resultText = `You can buy approx. <span class="number">${Math.round(result)}</span> ${finalUnit}.`;
+      } else if (conversionType === "beans") {
+        finalUnit = "cans of pork and beans"; // CHANGED: Fixed unit to include "cans of"
+        resultText = `You can buy approx. <span class="number">${Math.round(result)}</span> ${finalUnit}.`; // CHANGED: Used Math.round for whole cans
       } else {
         if (conversionType === "tiger") {
           finalUnit = result <= 1 ? "pet tiger" : "pet tigers";
@@ -358,18 +370,16 @@
           if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
         }
 
-        // Round numbers based on whether result is >= 1 or < 1
         const roundedResult = result >= 1 
-          ? Math.round(result) // Round to nearest whole number if >= 1
-          : Number(result.toFixed(2)); // Round to 2 decimal places if < 1
+          ? Math.round(result)
+          : Number(result.toFixed(2));
 
         const properNouns = [
           "Super Bowl", "Ferrari 296 GTB", "Harley Davidson Motorcycles", "Stradivarius Violins",
           "Rolex Submariner Watches", "Xbox Series X Consoles", "SpaceX Tickets to Orbit",
           "Machu Picchu", "Wimbledon Finals", "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans",
-          "VIP Concert Tickets"
+          "VIP Concert Tickets", "Mount Everest"
         ];
-        // List of proper nouns to preserve within phrases
         const properNounsToPreserve = [
           "Iceland", "Paris", "Mount Everest", "Times Square", "Machu Picchu", "Wimbledon", "Turtle Wax",
           "Thomas Edison", "Van Camp’s", "Girl Scout", "Post-it", "SpaceX", "Xbox", "Rolex", "Taylor Swift",
@@ -377,24 +387,19 @@
           "Super Bowl", "LEGO", "VIP"
         ];
 
-        // If the unit is a full proper noun phrase, use it as is
         if (properNouns.includes(unit)) {
           finalUnit = unit;
         } else {
-          // Lowercase the entire string initially
           finalUnit = finalUnit.toLowerCase();
-          // Re-capitalize proper nouns within the phrase
           for (const properNoun of properNounsToPreserve) {
             const regex = new RegExp(`\\b${properNoun.toLowerCase()}\\b`, "gi");
             finalUnit = finalUnit.replace(regex, properNoun);
           }
         }
 
-        // Use roundedResult instead of result.toLocaleString
         resultText = `You can buy approx. <span class="number">${roundedResult.toLocaleString()}</span> ${finalUnit}.`;
       }
 
-      // Show fun fact container only if both salary and conversion are valid
       funFactContainer.style.display = "block";
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
