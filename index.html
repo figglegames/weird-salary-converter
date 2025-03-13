@@ -57,7 +57,8 @@
       padding: 16px;
       margin: 8px auto;
       width: 100%;
-      max-width: 90%;
+      min-width: 300px; /* CHANGED: Added min-width to accommodate longer options */
+      max-width: 95%; /* CHANGED: Increased max-width for flexibility */
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -81,12 +82,12 @@
       padding: 15px;
       background-color: white;
       border-left: 5px solid #2e7d32; /* Default, overridden by JS */
-      word-wrap: normal; /* CHANGED: Allow natural wrapping */
-      overflow-wrap: normal; /* CHANGED: Allow natural wrapping */
+      word-wrap: normal;
+      overflow-wrap: normal;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       opacity: 0;
       transition: opacity 0.3s ease;
-      white-space: normal; /* CHANGED: Prevent awkward mid-word breaks */
+      white-space: normal;
     }
     #result.show {
       opacity: 1;
@@ -137,7 +138,7 @@
       .input-container, select { max-width: 400px; }
       input { font-size: 1.6em; padding: 15px 15px 15px 35px; }
       .dollar-sign { font-size: 1.6em; left: 12px; }
-      select { font-size: 1.6em; padding: 15px; }
+      select { font-size: 1.6em; padding: 15px; min-width: 350px; } /* CHANGED: Increased min-width for larger screens */
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -150,7 +151,7 @@
       .input-container, select { max-width: 500px; }
       input { padding-left: 40px; }
       .dollar-sign { left: 15px; }
-      select { font-size: 1.8em; padding: 15px; }
+      select { font-size: 1.8em; padding: 15px; min-width: 400px; } /* CHANGED: Increased min-width for larger screens */
       #result, #funFactContainer { max-width: 800px; }
     }
   </style>
@@ -355,7 +356,7 @@
           if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
         }
 
-        // CHANGED: Round numbers based on whether result is >= 1 or < 1
+        // Round numbers based on whether result is >= 1 or < 1
         const roundedResult = result >= 1 
           ? Math.round(result) // Round to nearest whole number if >= 1
           : Number(result.toFixed(2)); // Round to 2 decimal places if < 1
@@ -387,7 +388,7 @@
           }
         }
 
-        // CHANGED: Use roundedResult instead of result.toLocaleString
+        // Use roundedResult instead of result.toLocaleString
         resultText = `You can buy approx. <span class="number">${roundedResult.toLocaleString()}</span> ${finalUnit}.`;
       }
 
