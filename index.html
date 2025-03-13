@@ -134,6 +134,25 @@
       line-height: 1.4;
       display: inline;
     }
+    #shareContainer {
+      max-width: 90%;
+      margin: 15px auto;
+      text-align: center;
+      display: none;
+    }
+    #copyLinkBtn {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #copyLinkBtn:hover {
+      background-color: #1b5e20;
+    }
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
       p.salary-label { font-size: 1.6em; }
@@ -145,6 +164,8 @@
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
       #funFactContainer { max-width: 600px; }
+      #shareContainer { max-width: 600px; }
+      #copyLinkBtn { font-size: 1.4em; padding: 12px 24px; }
     }
     @media (min-width: 1024px) {
       body { margin: 20px; }
@@ -155,6 +176,8 @@
       .dollar-sign { left: 15px; }
       select { font-size: 1.8em; padding: 15px; min-width: 400px; }
       #result, #funFactContainer { max-width: 800px; }
+      #shareContainer { max-width: 800px; }
+      #copyLinkBtn { font-size: 1.6em; padding: 14px 28px; }
     }
   </style>
 </head>
@@ -207,7 +230,7 @@
     <option value="icecream">Gallons of Premium Ice Cream</option>
     <option value="cassette">Vintage Cassette Tapes 📼</option>
     <option value="wax">Turtle Wax 🐢</option>
-    <option value="bulb">Original Thomas Edison Lightbulb</option> <!-- CHANGED: Added "Original" -->
+    <option value="bulb">Original Thomas Edison Lightbulb</option>
     <option value="silver">Mason Jars of US Silver Coins</option>
     <option value="ouija">Ouija Boards</option>
     <option value="chocolate">Pounds of Belgian Chocolate 🍫</option>
@@ -221,6 +244,9 @@
     <span id="funFactLabel">Did you know?</span>
     <span id="funFact" aria-live="polite"></span>
   </div>
+  <div id="shareContainer">
+    <button id="copyLinkBtn" onclick="copyLink()">Copy Link to Share</button>
+  </div>
 
   <script>
     const salaryInput = document.getElementById("salaryInput");
@@ -228,6 +254,7 @@
     const resultDiv = document.getElementById("result");
     const funFactDiv = document.getElementById("funFact");
     const funFactContainer = document.getElementById("funFactContainer");
+    const shareContainer = document.getElementById("shareContainer");
 
     const PRICES = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
@@ -282,7 +309,7 @@
       icecream: "Premium ice cream has less air, making it denser, creamier, and way more satisfying.",
       cassette: "Vintage cassette tapes have space for hidden tracks, and some bands record secret songs in the blank area at the end of a side.",
       wax: "Turtle Wax was invented in a bathtub, proving that great ideas can happen anywhere.",
-      bulb: "Thomas Edison didn’t invent the lightbulb, but he perfected it by making it last longer and be practical for daily use.", // CHANGED: "light bulb" to "lightbulb"
+      bulb: "Thomas Edison didn’t invent the lightbulb, but he perfected it by making it last longer and be practical for daily use.",
       silver: "The U.S. stopped minting silver coins for everyday use in 1965, after the price of silver skyrocketed.",
       ouija: "‘Ouija’ is a combination of the French and German words for 'yes', 'oui' and 'ja'.",
       chocolate: "Belgium produces over 170,000 tons of chocolate annually.",
@@ -326,7 +353,8 @@
       console.log("Salary parsed:", salary);
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.");
-        funFactContainer.style.display = "none"; // Hide fun fact if salary is invalid
+        funFactContainer.style.display = "none";
+        shareContainer.style.display = "none"; // Hide share button if salary is invalid
         funFactDiv.textContent = "";
         return;
       }
@@ -335,7 +363,8 @@
       console.log("Conversion type:", conversionType);
       if (!conversionType) {
         resultDiv.textContent = "";
-        funFactContainer.style.display = "none"; // Hide fun fact if no conversion selected
+        funFactContainer.style.display = "none";
+        shareContainer.style.display = "none"; // Hide share button if no conversion selected
         funFactDiv.textContent = "";
         return;
       }
@@ -365,7 +394,7 @@
         finalUnit = result <= 1 ? "billboard in Times Square for one day" : "billboards in Times Square for one day";
         resultText = `You can buy approx. <span class="number">${result.toLocaleString()}</span> ${finalUnit}.`;
       } else if (conversionType === "bulb") {
-        finalUnit = Math.round(result) <= 1 ? "original Thomas Edison lightbulb" : "original Thomas Edison lightbulbs"; // CHANGED: Added "original" and plural logic
+        finalUnit = Math.round(result) <= 1 ? "original Thomas Edison lightbulb" : "original Thomas Edison lightbulbs";
         resultText = `You can buy approx. <span class="number">${Math.round(result).toLocaleString()}</span> ${finalUnit}.`;
       } else {
         if (conversionType === "tiger") {
@@ -405,6 +434,7 @@
       }
 
       funFactContainer.style.display = "block";
+      shareContainer.style.display = "block"; // Show share button when result is displayed
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
       resultDiv.style.borderLeftColor = RESULT_COLORS[resultColorIndex];
@@ -414,6 +444,16 @@
 
       showResult(resultText);
       funFactDiv.textContent = `${funFact}`;
+    }
+
+    function copyLink() {
+      const url = "https://figglegames.github.io/weird-salary-converter/";
+      navigator.clipboard.writeText(url).then(() => {
+        alert("Link copied to clipboard! Share it with friends to try the Weird Salary Converter.");
+      }).catch(err => {
+        console.error("Failed to copy link: ", err);
+        alert("Failed to copy link. Please copy this manually: " + url);
+      });
     }
 
     function showResult(message) {
