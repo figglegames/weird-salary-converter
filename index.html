@@ -81,11 +81,12 @@
       padding: 15px;
       background-color: white;
       border-left: 5px solid #2e7d32; /* Default, overridden by JS */
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      word-wrap: normal; /* CHANGED: Allow natural wrapping */
+      overflow-wrap: normal; /* CHANGED: Allow natural wrapping */
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       opacity: 0;
       transition: opacity 0.3s ease;
+      white-space: normal; /* CHANGED: Prevent awkward mid-word breaks */
     }
     #result.show {
       opacity: 1;
@@ -109,7 +110,6 @@
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      /* NEW: Hide fun fact container by default */
       display: none;
     }
     #funFactLabel {
@@ -164,7 +164,7 @@
   </div>
   <select id="conversionType" onchange="convert()" aria-label="Select conversion type">
     <option value="">Choose a Quirky Conversion</option>
-    <option value="goldfish">Goldfish</option> <!-- CHANGED: Removed 🐟 emoji -->
+    <option value="goldfish">Goldfish</option>
     <option value="flamingos">Plastic Lawn Flamingos 🦩</option>
     <option value="cookies">Girl Scout Cookies 🍪</option>
     <option value="swim">Minutes of Swim Time in Iceland 🏊‍♂️</option>
@@ -355,7 +355,11 @@
           if (unit === "One-Year Supplies of Instant Noodles") finalUnit = "One-Year Supply of Instant Noodles";
         }
 
-        const fractionDigits = result < 1 ? 4 : 2;
+        // CHANGED: Round numbers based on whether result is >= 1 or < 1
+        const roundedResult = result >= 1 
+          ? Math.round(result) // Round to nearest whole number if >= 1
+          : Number(result.toFixed(2)); // Round to 2 decimal places if < 1
+
         const properNouns = [
           "Super Bowl", "Ferrari 296 GTB", "Harley Davidson Motorcycles", "Stradivarius Violins",
           "Rolex Submariner Watches", "Xbox Series X Consoles", "SpaceX Tickets to Orbit",
@@ -383,7 +387,8 @@
           }
         }
 
-        resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
+        // CHANGED: Use roundedResult instead of result.toLocaleString
+        resultText = `You can buy approx. <span class="number">${roundedResult.toLocaleString()}</span> ${finalUnit}.`;
       }
 
       // Show fun fact container only if both salary and conversion are valid
