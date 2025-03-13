@@ -354,15 +354,16 @@
         const fractionDigits = result < 1 ? 4 : 2;
         const properNouns = [
           "Super Bowl", "Ferrari 296 GTB", "Harley Davidson Motorcycles", "Stradivarius Violins",
-          "Rolex Submariner Watches", "Xbox Series X Consoles", "Taylor Swift VIP Concert Tickets",
-          "SpaceX Tickets to Orbit", "Machu Picchu", "Wimbledon Finals", "Turtle Wax", "Thomas Edison",
-          "Van Camp’s Pork and Beans"
+          "Rolex Submariner Watches", "Xbox Series X Consoles", "SpaceX Tickets to Orbit",
+          "Machu Picchu", "Wimbledon Finals", "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans",
+          "VIP Concert Tickets"
         ];
         // List of proper nouns to preserve within phrases
         const properNounsToPreserve = [
           "Iceland", "Paris", "Mount Everest", "Times Square", "Machu Picchu", "Wimbledon", "Turtle Wax",
           "Thomas Edison", "Van Camp’s", "Girl Scout", "Post-it", "SpaceX", "Xbox", "Rolex", "Taylor Swift",
-          "Ferrari", "Harley Davidson", "Stradivarius", "Belgium", "Belgian", "US", "Moon", "Netflix", "Ouija", "Super Bowl"
+          "Ferrari", "Harley Davidson", "Stradivarius", "Belgium", "Belgian", "US", "Moon", "Netflix", "Ouija",
+          "Super Bowl", "LEGO", "VIP"
         ];
 
         // If the unit is a full proper noun phrase, use it as is
@@ -373,7 +374,7 @@
           finalUnit = finalUnit.toLowerCase();
           // Re-capitalize proper nouns within the phrase
           for (const properNoun of properNounsToPreserve) {
-            const regex = new RegExp(properNoun.toLowerCase(), "gi");
+            const regex = new RegExp(`\\b${properNoun.toLowerCase()}\\b`, "gi");
             finalUnit = finalUnit.replace(regex, properNoun);
           }
         }
