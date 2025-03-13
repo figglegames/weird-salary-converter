@@ -18,8 +18,8 @@
       font-size: 1.8em;
     }
     p.salary-label {
-      font-size: 1.4em; /* Slightly larger for mobile */
-      text-align: left;
+      font-size: 1.4em;
+      text-align: center; /* Centered again */
       margin: 10px 0;
       white-space: nowrap;
     }
@@ -28,7 +28,7 @@
       display: inline-block;
       width: 100%;
       max-width: 320px;
-      margin: 8px auto; /* Keep centered */
+      margin: 8px auto;
     }
     input {
       font-size: 1.4em;
@@ -53,16 +53,17 @@
       pointer-events: none;
     }
     select {
-      font-size: 1.4em; /* Slightly larger for mobile */
-      padding: 16px; /* Increased padding for larger appearance */
-      margin: 8px 0;
+      font-size: 1.4em;
+      padding: 16px;
+      margin: 8px auto; /* Centered */
       width: 100%;
-      max-width: 90%; /* Use more of the frame */
+      max-width: 90%;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
       transition: border-color 0.3s ease;
-      text-align: left;
+      text-align: center; /* Centered */
+      display: block; /* Ensures centering works */
     }
     select:focus {
       border-color: #2e7d32;
@@ -79,7 +80,7 @@
       margin: 20px auto;
       padding: 15px;
       background-color: white;
-      border-left: 5px solid #2e7d32;
+      border-left: 5px solid #2e7d32; /* Default, overridden by JS */
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -349,6 +350,8 @@
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
+      // Rotate colors for both fun fact and result borders
+      resultDiv.style.borderLeftColor = FUN_FACT_COLORS[colorIndex];
       funFactContainer.style.borderLeftColor = FUN_FACT_COLORS[colorIndex];
       colorIndex = (colorIndex + 1) % FUN_FACT_COLORS.length;
 
