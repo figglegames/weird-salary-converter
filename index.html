@@ -19,7 +19,7 @@
     }
     p.salary-label {
       font-size: 1.4em;
-      text-align: center; /* Centered */
+      text-align: center;
       margin: 10px 0;
       white-space: nowrap;
     }
@@ -55,7 +55,7 @@
     select {
       font-size: 1.4em;
       padding: 16px;
-      margin: 8px auto; /* Centered */
+      margin: 8px auto;
       width: 100%;
       max-width: 90%;
       box-sizing: border-box;
@@ -245,6 +245,7 @@
     let colorIndex = 0;
 
     conversionTypeSelect.addEventListener("change", convert);
+    console.log("Event listener attached"); // Debug: Confirm listener is set
 
     salaryInput.addEventListener("input", function() {
       let value = this.value.replace(/[^0-9]/g, "");
@@ -255,7 +256,9 @@
     });
 
     function convert() {
+      console.log("Convert function triggered"); // Debug: Confirm function runs
       const salary = parseFloat(salaryInput.value.replace(/,/g, ""));
+      console.log("Salary parsed:", salary); // Debug: Check parsed value
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.");
         funFactDiv.textContent = "";
@@ -263,6 +266,7 @@
       }
 
       const conversionType = conversionTypeSelect.value;
+      console.log("Conversion type:", conversionType); // Debug: Check selected value
       if (!conversionType) {
         resultDiv.textContent = "";
         funFactDiv.textContent = "";
@@ -270,6 +274,7 @@
       }
 
       const result = salary / PRICES[conversionType];
+      console.log("Result calculated:", result); // Debug: Check division
       const unit = conversionTypeSelect.options[conversionTypeSelect.selectedIndex].text;
       let finalUnit = unit;
       let resultText;
