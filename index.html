@@ -57,14 +57,16 @@
       padding: 16px;
       margin: 8px auto;
       width: 100%;
-      min-width: 300px; /* CHANGED: Added min-width to accommodate longer options */
-      max-width: 95%; /* CHANGED: Increased max-width for flexibility */
+      min-width: 400px; /* CHANGED: Increased min-width to accommodate longer selected text */
+      max-width: 95%;
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
       transition: border-color 0.3s ease;
       text-align: center;
       display: block;
+      overflow: hidden; /* Ensure text doesn’t overflow beyond width */
+      text-overflow: ellipsis; /* Add ellipsis if text still exceeds width (optional fallback) */
     }
     select:focus {
       border-color: #2e7d32;
@@ -121,7 +123,7 @@
       border-radius: 3px;
       font-size: 1.2em;
       font-weight: bold;
-      text-transform: uppercase;
+      text-overflow: uppercase;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       background-image: linear-gradient(to right, #f9f9f9, #ffffff);
       margin-right: 5px;
@@ -138,7 +140,7 @@
       .input-container, select { max-width: 400px; }
       input { font-size: 1.6em; padding: 15px 15px 15px 35px; }
       .dollar-sign { font-size: 1.6em; left: 12px; }
-      select { font-size: 1.6em; padding: 15px; min-width: 350px; } /* CHANGED: Increased min-width for larger screens */
+      select { font-size: 1.6em; padding: 15px; min-width: 450px; } /* CHANGED: Increased min-width for larger screens */
       #result { font-size: 2em; max-width: 600px; }
       #funFactLabel { font-size: 1.4em; }
       #funFact { font-size: 1.6em; }
@@ -151,7 +153,7 @@
       .input-container, select { max-width: 500px; }
       input { padding-left: 40px; }
       .dollar-sign { left: 15px; }
-      select { font-size: 1.8em; padding: 15px; min-width: 400px; } /* CHANGED: Increased min-width for larger screens */
+      select { font-size: 1.8em; padding: 15px; min-width: 500px; } /* CHANGED: Increased min-width for larger screens */
       #result, #funFactContainer { max-width: 800px; }
     }
   </style>
