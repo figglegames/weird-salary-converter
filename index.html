@@ -19,7 +19,7 @@
     }
     p.salary-label {
       font-size: 1.4em;
-      text-align: center;
+      text-align: center; /* Centered */
       margin: 10px 0;
       white-space: nowrap;
     }
@@ -55,7 +55,7 @@
     select {
       font-size: 1.4em;
       padding: 16px;
-      margin: 8px auto;
+      margin: 8px auto; /* Centered */
       width: 100%;
       max-width: 90%;
       box-sizing: border-box;
@@ -80,7 +80,7 @@
       margin: 20px auto;
       padding: 15px;
       background-color: white;
-      border-left: 5px solid #2e7d32; /* Default, overridden by JS */
+      border-left: 5px solid #2e7d32;
       word-wrap: break-word;
       overflow-wrap: break-word;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -104,7 +104,7 @@
       margin: 15px auto;
       padding: 12px;
       background-color: white;
-      border-left: 5px solid #ffeb3b; /* Default, overridden by JS */
+      border-left: 5px solid #ffeb3b;
       text-align: left;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -242,12 +242,6 @@
       "#64b5f6", // Medium-light blue
       "#00e676"  // Bright green
     ];
-    const RESULT_COLORS = [
-      "#ab47bc", // Purple
-      "#ff9800", // Orange
-      "#26c6da", // Teal
-      "#cddc39"  // Lime
-    ];
     let colorIndex = 0;
 
     conversionTypeSelect.addEventListener("change", convert);
@@ -305,8 +299,6 @@
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
-      // Rotate different colors for result and fun fact borders
-      resultDiv.style.borderLeftColor = RESULT_COLORS[colorIndex];
       funFactContainer.style.borderLeftColor = FUN_FACT_COLORS[colorIndex];
       colorIndex = (colorIndex + 1) % FUN_FACT_COLORS.length;
 
