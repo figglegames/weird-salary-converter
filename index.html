@@ -143,7 +143,7 @@
     #copyLinkBtn {
       font-size: 1.2em;
       padding: 10px 20px;
-      background-color: #64b5f6; /* CHANGED: Medium-light blue */
+      background-color: #64b5f6;
       color: white;
       border: none;
       border-radius: 4px;
@@ -151,7 +151,24 @@
       transition: background-color 0.3s ease;
     }
     #copyLinkBtn:hover {
-      background-color: #42a5f5; /* CHANGED: Darker blue for hover */
+      background-color: #42a5f5;
+    }
+    #shareNotification {
+      max-width: 90%;
+      margin: 10px auto;
+      padding: 10px;
+      background-color: #e3f2fd; /* Light blue background to match the button */
+      color: #1a2a44;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1.2em;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #shareNotification.show {
+      display: block;
+      opacity: 1;
     }
     @media (min-width: 768px) {
       h1 { font-size: 2.5em; }
@@ -166,6 +183,7 @@
       #funFactContainer { max-width: 600px; }
       #shareContainer { max-width: 600px; }
       #copyLinkBtn { font-size: 1.4em; padding: 12px 24px; }
+      #shareNotification { font-size: 1.4em; max-width: 600px; }
     }
     @media (min-width: 1024px) {
       body { margin: 20px; }
@@ -178,6 +196,7 @@
       #result, #funFactContainer { max-width: 800px; }
       #shareContainer { max-width: 800px; }
       #copyLinkBtn { font-size: 1.6em; padding: 14px 28px; }
+      #shareNotification { font-size: 1.6em; max-width: 800px; }
     }
   </style>
 </head>
@@ -247,6 +266,7 @@
   <div id="shareContainer">
     <button id="copyLinkBtn" onclick="copyLink()">Copy Link to Share</button>
   </div>
+  <div id="shareNotification"></div>
 
   <script>
     const salaryInput = document.getElementById("salaryInput");
@@ -255,6 +275,7 @@
     const funFactDiv = document.getElementById("funFact");
     const funFactContainer = document.getElementById("funFactContainer");
     const shareContainer = document.getElementById("shareContainer");
+    const shareNotification = document.getElementById("shareNotification");
 
     const PRICES = {
       goldfish: 0.50, flamingos: 10, cookies: 0.17, swim: 0.1667, everest: 4000,
@@ -354,7 +375,8 @@
       if (isNaN(salary) || salary < 1 || salary > 1000000000) {
         showResult("Please enter a valid salary between $1 and $1 billion.");
         funFactContainer.style.display = "none";
-        shareContainer.style.display = "none"; // Hide share button if salary is invalid
+        shareContainer.style.display = "none";
+        shareNotification.style.display = "none"; // Hide notification if salary is invalid
         funFactDiv.textContent = "";
         return;
       }
@@ -364,7 +386,8 @@
       if (!conversionType) {
         resultDiv.textContent = "";
         funFactContainer.style.display = "none";
-        shareContainer.style.display = "none"; // Hide share button if no conversion selected
+        shareContainer.style.display = "none";
+        shareNotification.style.display = "none"; // Hide notification if no conversion selected
         funFactDiv.textContent = "";
         return;
       }
@@ -434,7 +457,7 @@
       }
 
       funFactContainer.style.display = "block";
-      shareContainer.style.display = "block"; // Show share button when result is displayed
+      shareContainer.style.display = "block";
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
       resultDiv.style.borderLeftColor = RESULT_COLORS[resultColorIndex];
@@ -449,11 +472,23 @@
     function copyLink() {
       const url = "https://figglegames.github.io/weird-salary-converter/";
       navigator.clipboard.writeText(url).then(() => {
-        alert("Link copied to clipboard! Share it with friends to try the Weird Salary Converter.");
+        showNotification("Link copied to clipboard! Share it with friends to try the Weird Salary Converter.");
       }).catch(err => {
         console.error("Failed to copy link: ", err);
-        alert("Failed to copy link. Please copy this manually: " + url);
+        showNotification("Failed to copy link. Please copy this manually: " + url);
       });
+    }
+
+    function showNotification(message) {
+      shareNotification.textContent = message;
+      shareNotification.style.display = "block";
+      shareNotification.classList.add("show");
+      setTimeout(() => {
+        shareNotification.classList.remove("show");
+        setTimeout(() => {
+          shareNotification.style.display = "none";
+        }, 500); // Match the CSS transition duration
+      }, 3000); // Display for 3 seconds
     }
 
     function showResult(message) {
