@@ -365,17 +365,17 @@
           "Ferrari", "Harley Davidson", "Stradivarius", "Belgium", "Belgian", "US", "Moon", "Netflix", "Ouija", "Super Bowl"
         ];
 
-        // If the unit is a full proper noun phrase, use it as is; otherwise, process word by word
+        // If the unit is a full proper noun phrase, use it as is
         if (properNouns.includes(unit)) {
           finalUnit = unit;
         } else {
-          // Split the unit into words, lowercase, and re-capitalize proper nouns
-          let words = finalUnit.toLowerCase().split(" ");
-          finalUnit = words.map(word => {
-            // Check if the word is a proper noun or part of a multi-word proper noun
-            let capitalizedWord = properNounsToPreserve.find(pn => pn.toLowerCase() === word || pn.toLowerCase().split(" ").includes(word));
-            return capitalizedWord || word;
-          }).join(" ");
+          // Lowercase the entire string initially
+          finalUnit = finalUnit.toLowerCase();
+          // Re-capitalize proper nouns within the phrase
+          for (const properNoun of properNounsToPreserve) {
+            const regex = new RegExp(properNoun.toLowerCase(), "gi");
+            finalUnit = finalUnit.replace(regex, properNoun);
+          }
         }
 
         resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
