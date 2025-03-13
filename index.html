@@ -358,7 +358,25 @@
           "SpaceX Tickets to Orbit", "Machu Picchu", "Wimbledon Finals", "Turtle Wax", "Thomas Edison",
           "Van Camp’s Pork and Beans"
         ];
-        finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
+        // List of proper nouns to preserve within phrases
+        const properNounsToPreserve = [
+          "Iceland", "Paris", "Mount Everest", "Times Square", "Machu Picchu", "Wimbledon", "Turtle Wax",
+          "Thomas Edison", "Van Camp’s", "Girl Scout", "Post-it", "SpaceX", "Xbox", "Rolex", "Taylor Swift",
+          "Ferrari", "Harley Davidson", "Stradivarius", "Belgium", "Belgian", "US", "Moon", "Netflix", "Ouija", "Super Bowl"
+        ];
+
+        // If the unit is a full proper noun phrase, use it as is; otherwise, process word by word
+        if (properNouns.includes(unit)) {
+          finalUnit = unit;
+        } else {
+          // Split the unit into words, lowercase, and re-capitalize proper nouns
+          let words = finalUnit.toLowerCase().split(" ");
+          finalUnit = words.map(word => {
+            // Check if the word is a proper noun or part of a multi-word proper noun
+            let capitalizedWord = properNounsToPreserve.find(pn => pn.toLowerCase() === word || pn.toLowerCase().split(" ").includes(word));
+            return capitalizedWord || word;
+          }).join(" ");
+        }
 
         resultText = `You can buy approx. <span class="number">${result.toLocaleString(undefined, { maximumFractionDigits: fractionDigits })}</span> ${finalUnit}.`;
       }
