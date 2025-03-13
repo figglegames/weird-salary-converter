@@ -355,7 +355,16 @@
         const properNouns = [
           "Super Bowl", "Ferrari 296 GTB", "Harley Davidson", "Stradivarius", "Rolex Submariner",
           "Xbox Series X", "Taylor Swift", "SpaceX", "Times Square", "Machu Picchu", "Wimbledon",
-          "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans"
+          "Turtle Wax", "Thomas Edison", "Van Camp’s Pork and Beans", "Post-it Notes",
+          "Minutes of Swim Time in Iceland", "Plastic Lawn Flamingos", "Girl Scout Cookies",
+          "Mount Everest", "Ounces of Uranium", "Ferrari 296 GTB", "Harley Davidson Motorcycles",
+          "Stradivarius Violins", "Rolex Submariner Watches", "Xbox Series X Consoles",
+          "Taylor Swift VIP Concert Tickets", "First Class Flights to Paris", "Pet Tigers",
+          "SpaceX Tickets to Orbit", "Billboards in Times Square for One Day", "Trips to Machu Picchu",
+          "Curling Lessons", "Tickets to Wimbledon Finals", "Ounces of Saffron", "Vintage Cassette Tapes",
+          "1915 Thomas Edison Light Bulbs", "Mason Jars of US Silver Coins", "Ouija Boards",
+          "Pounds of Belgian Chocolate", "Cans of Van Camp’s Pork and Beans", "Hours of Netflix Streaming",
+          "Square Feet of Moon Real Estate"
         ];
         finalUnit = properNouns.includes(unit) ? unit : finalUnit.toLowerCase();
 
@@ -364,7 +373,6 @@
 
       const funFact = FUN_FACTS[conversionType] || "This item has a fascinating history";
       
-      // Separate color rotations for result and fun fact
       resultDiv.style.borderLeftColor = RESULT_COLORS[resultColorIndex];
       funFactContainer.style.borderLeftColor = FUN_FACT_COLORS[funFactColorIndex];
       funFactColorIndex = (funFactColorIndex + 1) % FUN_FACT_COLORS.length;
